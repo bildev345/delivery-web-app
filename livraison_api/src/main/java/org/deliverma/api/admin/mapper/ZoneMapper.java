@@ -1,0 +1,30 @@
+package org.deliverma.api.admin.mapper;
+
+import org.deliverma.api.admin.dto.zoneLivraison.ZoneRequest;
+import org.deliverma.api.admin.dto.zoneLivraison.ZoneResponse;
+import org.deliverma.api.shared.entities.ZoneLivraison;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ZoneMapper {
+    public ZoneResponse toResponse(ZoneLivraison zone){
+        return ZoneResponse.builder()
+        .nom(zone.getNom())
+        .id(zone.getId())
+        .delaisJours(zone.getDelaisJours())
+        .fraisLivraison(zone.getFraisLivraison())
+        .villesCouvertes(zone.getVillesCouvertes())
+        .active(zone.isActive())
+        .build();
+    }
+
+    public ZoneLivraison toEntity(ZoneRequest request){
+        return ZoneLivraison.builder()
+        .nom(request.nom())
+        .villesCouvertes(request.villesCouvertes())
+        .fraisLivraison(request.fraisLivraison())
+        .delaisJours(request.delaisJours())
+        .active(true)
+        .build();
+    }
+}
