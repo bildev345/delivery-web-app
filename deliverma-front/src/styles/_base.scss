@@ -1,0 +1,7 @@
+@use 'variables' as *;
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #F1F5F9;
+    color: $dark;
+}

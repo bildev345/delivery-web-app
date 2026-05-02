@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useProfil, useUpdateProfil } from '../../../hooks/useVendeurs';
+import { FaCheck, FaPencilAlt } from 'react-icons/fa';
 
 const EMPTY_FORM = {
     nomBoutique : '',
@@ -88,14 +89,14 @@ export const ProfilPage = () => {
                         className="btn btn-orange"
                         onClick={() => setEditing(true)}
                     >
-                        {/*✏️*/} Modifier
+                        <FaPencilAlt/> Modifier
                     </button>
                 )}
             </div>
 
             {success && (
                 <div className="alert alert-success">
-                    {/*✅*/} Boutique mise à jour avec succès
+                     Boutique mise à jour avec succès
                 </div>
             )}
 
@@ -216,7 +217,11 @@ export const ProfilPage = () => {
                                 >
                                     {updateMutation.isPending
                                         ? 'Sauvegarde...'
-                                        : '✓ Sauvegarder'}
+                                        : <span>
+                                            <FaCheck/> {' '}
+                                            Sauvegarder
+                                        </span>
+                                    }
                                 </button>
                             </div>
                         )}

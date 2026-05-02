@@ -1,0 +1,159 @@
+@use 'variables' as *;
+
+.admin-page {}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.page-title { 
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: $dark; 
+}
+.page-subtitle { 
+    font-size: .82rem;
+    color: $text;
+    margin-top: .2rem;
+}
+.page-loading,
+.page-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    font-size: .9rem;
+    color: #64748B;
+}
+
+// ── Filters ──────────────────────────────────────────
+.filters-bar {
+    display: flex;
+    gap: .75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-search {
+    flex: 1;
+    min-width: 200px;
+    padding: .5rem .75rem;
+    border: 1.5px solid $gray2;
+    border-radius: 8px;
+    font-size: .85rem;
+    &:focus { outline: none; border-color: $blue; }
+}
+
+.filter-select {
+    padding: .5rem .75rem;
+    border: 1.5px solid $gray2;
+    border-radius: 8px;
+    font-size: .85rem;
+    background: white;
+    &:focus { outline: none; border-color: $blue; }
+}
+
+// ── Categories layout ────────────────────────────────
+.categories-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card-simple {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+}
+
+.card-simple-title {
+    font-size: .9rem;
+    font-weight: 700;
+    color: $dark;
+    margin-bottom: 1rem;
+    padding-bottom: .65rem;
+    border-bottom: 1px solid $gray2;
+}
+
+.inline-edit-input {
+    width: 100%;
+    padding: .35rem .6rem;
+    border: 1.5px solid $blue;
+    border-radius: 6px;
+    font-size: .85rem;
+    &:focus { outline: none; }
+}
+
+// ── User cell ────────────────────────────────────────
+.user-cell        { display: flex; align-items: center; gap: .65rem; }
+.user-cell-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: $orange;
+    color: white;
+    font-size: .68rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+// ── Profil vendeur ───────────────────────────────────
+.profil-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.profil-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+}
+
+.profil-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid $gray2;
+    h3 { font-size: .95rem; font-weight: 700; color: $dark; }
+}
+
+.profil-info-list  { display: flex; flex-direction: column; gap: .85rem; }
+.profil-info-item  { display: flex; flex-direction: column; gap: .2rem; }
+.profil-info-label {
+    font-size: .72rem; font-weight: 600;
+    color: #64748B; text-transform: uppercase; letter-spacing: .04em;
+}
+.profil-info-value { font-size: .88rem; color: $dark; font-weight: 500; }
+
+.profil-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: .65rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid $gray2;
+}

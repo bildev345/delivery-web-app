@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useVendeurs, useToggleVendeur } from '../../../hooks/useVendeurs';
 import { VendeurTable } from './VendeurTable';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 
 export const VendeursPage = () => {
     const [page, setPage] = useState(0);
@@ -39,7 +40,7 @@ export const VendeursPage = () => {
                         disabled={page === 0}
                         onClick={() => setPage(p => p - 1)}
                     >
-                        ← Précédent
+                        <FaArrowLeft/> Précédent
                     </button>
                     <span className="pagination-info">
                         Page {page + 1} / {totalPages}
@@ -49,7 +50,7 @@ export const VendeursPage = () => {
                         disabled={page >= totalPages - 1}
                         onClick={() => setPage(p => p + 1)}
                     >
-                        Suivant →
+                        Suivant <FaArrowRight/>
                     </button>
                 </div>
             )}

@@ -1,0 +1,47 @@
+@use 'variables' as *;
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .35rem;
+    border: none;
+    border-radius: 8px;
+    padding: .55rem 1.1rem;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity .15s, transform .1s;
+    white-space: nowrap;
+
+    &:hover:not(:disabled)  { opacity: .88; }
+    &:active:not(:disabled) { transform: scale(.98); }
+    &:disabled              { opacity: .55; cursor: not-allowed; }
+
+    &-orange { background: $orange;  color: white; }
+    &-blue { background: $blue;    color: white; }
+    &-green { background: $green;   color: white; }
+    &-red { background: $red;     color: white; }
+    &-success { background: $green;   color: white; }
+    &-danger { background: $red;     color: white; }
+
+    &-outline {
+        background: transparent;
+        border: 1.5px solid $blue;
+        color: $blue;
+        &:hover:not(:disabled) {
+            background: rgba($blue, .05);
+            opacity: 1;
+        }
+    }
+
+    &-ghost {
+        background: transparent;
+        color: $text;
+        &:hover:not(:disabled) { background: $gray2; opacity: 1; }
+    }
+
+    &-sm { padding: .32rem .7rem;  font-size: .78rem; border-radius: 6px; }
+    &-xs { padding: .2rem  .5rem;  font-size: .7rem;  border-radius: 5px; }
+    &-lg { padding: .75rem 1.5rem; font-size: .95rem; }
+}

@@ -11,13 +11,17 @@ import { NotFound } from '../pages/errors/NotFound';
 import { Forbidden } from '../pages/errors/Forbidden';
 import { useAuth } from '../hooks/useAuth';
 import { ZonesPage } from '../pages/admin/zone/ZonesPage';
-import AdminLayout from '../layouts/AdminLayout';
-import VendeurLayout from '../layouts/VendeurLayout';
+import AdminLayout from '../layouts/admin/AdminLayout';
+import VendeurLayout from '../layouts/vendeur/VendeurLayout';
 import { OffresPages } from '../pages/vendeur/offre/OffresPages';
 import { CommandesPages } from '../pages/vendeur/commande/CommandesPage';
 import { BoutiquePage } from '../pages/vendeur/boutique/BoutiquePage';
 import { ProfilPage } from '../pages/vendeur/profil/ProfilPage';
 import { VendeursPage } from '../pages/admin/vendeurs/VendeursPage';
+import { CategoriesPage } from '../pages/admin/categories/CategoriesPage';
+import { ProduitsPage } from '../pages/admin/produits/ProduitsPage';
+import { UsersPage } from '../pages/admin/utilisateurs/UsersPage';
+import { LivreursPages } from '../pages/admin/livreurs/LivreursPages';
 
 function RootRedirect() {
     const { user, loading } = useAuth();
@@ -96,6 +100,12 @@ export default function AppRouter() {
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="zones" element={<ZonesPage />} />
             <Route path="vendeurs" element={<VendeursPage />} />
+            <Route path="categories" element={<CategoriesPage/>}/>
+            <Route path="produits" element={<ProduitsPage/>}/>
+            <Route path="livreurs" element={<LivreursPages/>}/>
+            <Route path="commandes" element={<CommandesPages/>}/>
+            <Route path="utilisateurs" element={<UsersPage/>}/>
+
 
           </Route>
 

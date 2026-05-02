@@ -1,3 +1,5 @@
+import { FaPause, FaPlay } from "react-icons/fa";
+
 export const VendeurTable = ({ vendeurs, onToggle, toggleLoading }) => {
     //console.log("Vendeurs: ", vendeurs);
     return (
@@ -52,7 +54,16 @@ export const VendeurTable = ({ vendeurs, onToggle, toggleLoading }) => {
                                         onClick={() => onToggle(v.vendeurId)}
                                         disabled={toggleLoading}
                                     >
-                                        {v.actif ? '⏸ Suspendre' : '▶ Activer'}
+                                        {v.actif 
+                                        ? (
+                                            <span>
+                                                <FaPause/> Suspendre
+                                            </span>
+                                        ) : (
+                                            <span>
+                                                <FaPlay/> Activer
+                                            </span>
+                                        )}
                                     </button>
                                 </td>
                             </tr>

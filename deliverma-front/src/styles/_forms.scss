@@ -1,0 +1,73 @@
+@use 'variables' as *;
+
+.form-group {
+    margin-bottom: 1rem;
+
+    label {
+        display: block;
+        font-size: .8rem;
+        font-weight: 600;
+        color: $text;
+        margin-bottom: .35rem;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: .55rem .75rem;
+        border: 1.5px solid $gray2;
+        border-radius: 8px;
+        font-size: .88rem;
+        color: $dark;
+        background: white;
+        transition: border-color .15s;
+        box-sizing: border-box;
+
+        &:focus {
+            outline: none;
+            border-color: $blue;
+            box-shadow: 0 0 0 3px rgba($blue, .08);
+        }
+        &::placeholder { color: #94A3B8; }
+        &:disabled {
+            background: $gray;
+            color: $text;
+            cursor: default;
+        }
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 90px;
+        font-family: inherit;
+    }
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .75rem;
+
+    .form-group {
+        min-width: 0;
+        input, select { min-width: 0; }
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.field-error {
+    display: block;
+    font-size: .72rem;
+    color: $red;
+    margin-top: .25rem;
+}
+
+.input-error {
+    border-color: $red !important;
+    &:focus {
+        border-color: $red !important;
+        box-shadow: 0 0 0 3px rgba($red, .08) !important;
+    }
+}

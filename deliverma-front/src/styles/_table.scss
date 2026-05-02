@@ -1,0 +1,84 @@
+@use 'variables' as *;
+
+.table-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    overflow: hidden;
+    // ✅ scroll horizontal sur petits écrans
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .85rem;
+    // ✅ empêche le tableau de se réduire trop
+    min-width: 600px;
+
+    th {
+        background: $gray;
+        color: $text;
+        padding: .7rem 1rem;
+        text-align: left;
+        font-weight: 600;
+        font-size: .78rem;
+        border-bottom: 2px solid $gray2;
+        white-space: nowrap;
+    }
+
+    td {
+        padding: .75rem 1rem;
+        border-bottom: 1px solid $gray2;
+        vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #FAFBFF; }
+}
+
+.td-bold { font-weight: 700; color: $dark; }
+.td-secondary { font-size: .8rem; color: $text; }
+.td-muted { font-size: .78rem; color: #94A3B8; }
+.td-truncate {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-empty {
+    text-align: center;
+    color: #94A3B8;
+    padding: 3rem 1rem !important;
+    font-style: italic;
+    font-size: .88rem;
+}
+
+.table-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid $gray2;
+}
+
+.action-btns {
+    display: flex;
+    gap: .4rem;
+    flex-wrap: wrap;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.pagination-info {
+    font-size: .82rem;
+    color: $text;
+    font-weight: 500;
+}

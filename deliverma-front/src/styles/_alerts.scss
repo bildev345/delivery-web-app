@@ -1,0 +1,16 @@
+@use 'variables' as *;
+
+.alert {
+    border-radius: 8px;
+    padding: .7rem .9rem;
+    font-size: .83rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+
+    &-error { background: #FEE2E2; color: #991B1B; border-left: 3px solid $red; }
+    &-success { background: #D1FAE5; color: #065F46; border-left: 3px solid $green; }
+    &-info { background: #EFF6FF; color: #1D4ED8; border-left: 3px solid $blue; }
+    &-warning { background: #FEF3C7; color: #92400E; border-left: 3px solid $orange; }
+}

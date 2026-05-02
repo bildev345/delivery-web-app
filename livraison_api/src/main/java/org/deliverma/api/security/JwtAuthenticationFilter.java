@@ -43,7 +43,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             try {
                 String username = jwtService.extractUsername(token);
-                // This calls your repository to get the user and their ROLE_ prefixed
                 // authorities
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
