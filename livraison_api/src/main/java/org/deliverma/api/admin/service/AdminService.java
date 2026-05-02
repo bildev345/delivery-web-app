@@ -1,5 +1,6 @@
 package org.deliverma.api.admin.service;
 
+import java.util.HashSet;
 import java.util.UUID;
 
 import org.deliverma.api.auth.dto.RegisterRequest;
@@ -32,10 +33,13 @@ public class AdminService {
                 .prenom(request.prenom())
                 .email(request.email())
                 .password(passwordEncoder.encode(request.password()))
-                .role(request.role())
+                .roles(new HashSet<>())
                 .telephone(request.telephone())
                 .actif(true)
                 .build();
+                
+        user.getRoles().add(request.role());
+
         User savedUser = userRepository.save(user);
         if (request.role() == Role.LIVREUR) {
             Livreur livreur = new Livreur();

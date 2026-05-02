@@ -1,5 +1,9 @@
 package org.deliverma.api.auth;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+
 import org.deliverma.api.auth.dto.AuthResponse;
 import org.deliverma.api.auth.dto.LoginRequest;
 import org.deliverma.api.auth.dto.RegisterRequest;
@@ -39,22 +43,34 @@ public class AuthService {
                     "Registration for this role is restricted.");
         }
 
-        if (userRepository.existsByEmail(request.email())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT,
-                    "Email already in use.");
-        }
+        Optional<User> existingUser = userRepository.findByEmail(request.email());
+        
+        User user;
+        if(existingUser.isPresent()){
+            user = existingUser.get();
+            // vérifier que le role demandé n'existe pas déjà
+            if(user.getRoles().contains(request.role())){
+                throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "Vous avez déjà un compte " + request.role().name().toLowerCase()
+                );
+            }
+        }else{
+            user = User.builder()
+            .nom(request.nom())
+            .prenom(request.prenom())
+            .email(request.email())
+            .password(passwordEncoder.encode(request.password()))
+            .telephone(request.telephone())
+            .roles(new HashSet<>())
+            .build();
+        } 
+        // ajouter le nouveau role si l'utilisateur n'existe pas
+        // ou si l'utilisateur existe mais avec un autre role
+        user.getRoles().add(request.role());
 
-        User user = User.builder()
-                .nom(request.nom())
-                .prenom(request.prenom())
-                .email(request.email())
-                .password(passwordEncoder.encode(request.password()))
-                .telephone(request.telephone())
-                .role(request.role())
-                .build();
         User savedUser = userRepository.save(user);
 
-        // Create the business profile
+        // Création du profil metier
         if (request.role() == Role.CLIENT) {
             Client client = new Client();
             client.setUser(savedUser);
@@ -76,18 +92,27 @@ public class AuthService {
     }
 
     public AuthResponse authenticate(LoginRequest request, HttpServletResponse response) {
-        // 1. Authenticate the user
+        // authenticate the user
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
-        // 2. Retrieve user details
-        var user = userRepository.findByEmail(request.email())
+        // récupérer user details
+        User user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        
+        List<String> roles = user.getRoles().stream()
+                            .map(Role::name)
+                            .toList();
+        // si l'utilisateur a plusieurs roles et n'a pas précisé lequel
+        // le frontend gérera la selection - on renvoie tous les roles                           
+        
+        String activeRole = request.activeRole() != null
+                            ? request.activeRole()
+                            : roles.get(0);
+        // générer le token
+        String jwt = jwtService.generateToken(user, activeRole);
 
-        // 3. Generate token
-        String jwt = jwtService.generateToken(user);
-
-        // 4. Create and add the Cookie
+        // créer et ajouter le cookie
         Cookie cookie = new Cookie("deliverma_jwt", jwt);
         cookie.setHttpOnly(true);
         cookie.setSecure(false);
@@ -104,7 +129,8 @@ public class AuthService {
                 .nom(user.getNom())
                 .prenom(user.getPrenom())
                 .email(user.getEmail())
-                .role(user.getRole().name())
+                .roles(roles)
+                .activeRole(activeRole)
                 .message("Authentication successful")
                 .build();
     }
@@ -123,12 +149,18 @@ public class AuthService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "Utilisateur non trouvé : " + email));
+        List<String> roles = user.getRoles().stream()
+                        .map(Role::name)
+                        .toList();                          
+        
+        String activeRole = roles.get(0);
         return new AuthResponse(
                 user.getId().toString(),
                 user.getNom(),
                 user.getPrenom(),
                 user.getEmail(),
-                user.getRole().name(),
+                roles,
+                activeRole,
                 null);
     }
 }

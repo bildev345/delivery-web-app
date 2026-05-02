@@ -1,5 +1,7 @@
 package org.deliverma.api.auth.dto;
 
+import java.util.List;
+
 import lombok.Builder;
 
 @Builder
@@ -8,7 +10,9 @@ public record AuthResponse(
     String nom,
     String prenom,
     String email,
-    String role,
+    List<String> roles,
+    // role actif dans la session courante
+    String activeRole,
     String message
 ) {
     

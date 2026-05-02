@@ -13,5 +13,7 @@ public record LoginRequest(
 
     @NotBlank(message = "{VALIDATION.AUTHENTICATION.PASSWORD.BLANK}")
     @Schema(example = "pAssword1!_")
-    String password
+    String password,
+
+    String activeRole
 ) {}

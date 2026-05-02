@@ -3,6 +3,7 @@ package org.deliverma.api.security;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -26,10 +27,11 @@ public class JwtService {
         this.publicKey = KeyUtils.loadPublicKey("keys/public_key.pem");
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails, String activeRole) {
         return Jwts.builder()
                 .subject(userDetails.getUsername())
-                .claim("authorities", userDetails.getAuthorities())
+                .claim(activeRole, activeRole)
+                .claim("authorities", List.of("ROLE_" + activeRole))
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + tokenExpiration))
                 .signWith(privateKey)
@@ -56,6 +58,10 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload();
         return claimsResolver.apply(claims);
+    }
+
+    public String extractActiveRole(String token) {
+        return extractClaim(token, claims -> claims.get("activeRole", String.class));
     }
 
 }
