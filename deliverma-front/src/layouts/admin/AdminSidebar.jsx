@@ -22,7 +22,7 @@ export const AdminSidebar = ({collapsed, setCollapsed}) => {
         navigate('/login');
     };
     return (
-            <aside className="admin-sidebar">
+            <aside className="sidebar">
                 <div className="sidebar-header">
                     {!collapsed && (
                         <span className="sidebar-logo">

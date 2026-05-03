@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 export const AdminHeader = () => {
     const { user } = useAuth();
     return(
-        <header className="admin-header">
+        <header className="header">
             <div className="header-left">
                 {/* Breadcrumb géré par chaque page via le title */}
             </div>

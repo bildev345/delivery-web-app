@@ -1,5 +1,7 @@
 package org.deliverma.api.auth;
 
+import java.util.Map;
+
 import org.deliverma.api.auth.dto.AuthResponse;
 import org.deliverma.api.auth.dto.LoginRequest;
 import org.deliverma.api.auth.dto.RegisterRequest;
@@ -49,4 +51,14 @@ public class AuthController {
             @AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(authService.me(userDetails.getUsername()));
     }
+    
+    @PostMapping("/switch-role")
+    public ResponseEntity<AuthResponse> switchRole(
+        @RequestBody Map<String, String> body,
+        @AuthenticationPrincipal UserDetails userDetails,
+        HttpServletResponse response) {
+        String targetRole = body.get("activeRole");
+        return ResponseEntity.ok(authService.switchRole(userDetails.getUsername(), targetRole, response)
+    );
+}
 }

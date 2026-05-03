@@ -7,11 +7,11 @@ export default function VendeurLayout() {
     const [collapsed, setCollapsed] = useState(false);
 
     return (
-        <div className={`admin-layout ${collapsed ? 'admin-layout--collapsed' : ''}`}>
+        <div className={`layout ${collapsed ? 'layout--collapsed' : ''}`}>
             <VendeurSidebar collapsed={collapsed} setCollapsed={setCollapsed}/>
-            <div className="admin-main">
+            <div className="main">
                 <VendeurHeader/>  
-                <main className="admin-content">
+                <main className="content">
                     <Outlet />
                 </main>
             </div>

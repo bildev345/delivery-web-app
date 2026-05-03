@@ -21,7 +21,7 @@ export const VendeurSidebar = ({collapsed, setCollapsed}) => {
     };
 
     return (
-        <aside className="admin-sidebar">
+        <aside className="sidebar">
                 <div className="sidebar-header">
                     {!collapsed && (
                              

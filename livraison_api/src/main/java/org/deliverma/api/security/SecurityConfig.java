@@ -49,7 +49,8 @@ public class SecurityConfig {
             "/swagger-ui.html",
             "/",
             "/index.html",
-            "/api/v1/catalogue/**"
+            "/api/v1/catalogue/**",
+            "/api/v1/auth/switch-role"
     };
 
    @Bean

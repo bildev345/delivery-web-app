@@ -34,7 +34,7 @@ function RootRedirect() {
         LIVREUR:  '/livreur/tournee',
         ADMIN:    '/admin/dashboard',
     };
-    return <Navigate to={dashboards[user.role] || '/login'} replace />;
+    return <Navigate to={dashboards[user.activeRole] || '/login'} replace />;
 }
 
 export default function AppRouter() {
@@ -50,7 +50,7 @@ export default function AppRouter() {
 
           {/* Client */}
           <Route
-            path="/client/*"
+            path="/client"
             element={
               <ProtectedRoute roles={["CLIENT"]}>
                 <Routes>
@@ -62,7 +62,7 @@ export default function AppRouter() {
 
           {/* Vendeur */}
           <Route
-            path="/vendeur/*"
+            path="/vendeur"
             element={
               <ProtectedRoute roles={["VENDEUR"]}>
                 <VendeurLayout/>
@@ -79,7 +79,7 @@ export default function AppRouter() {
 
           {/* Livreur */}
           <Route
-            path="/livreur/*"
+            path="/livreur"
             element={
               <ProtectedRoute roles={["LIVREUR"]}>
                 <Routes>

@@ -18,6 +18,7 @@ import org.deliverma.api.shared.repositories.VendeurRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,7 @@ public class AuthService {
             .email(request.email())
             .password(passwordEncoder.encode(request.password()))
             .telephone(request.telephone())
+            .actif(true)
             .roles(new HashSet<>())
             .build();
         } 
@@ -149,18 +151,58 @@ public class AuthService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "Utilisateur non trouvé : " + email));
-        List<String> roles = user.getRoles().stream()
-                        .map(Role::name)
-                        .toList();                          
+                                  
         
-        String activeRole = roles.get(0);
-        return new AuthResponse(
-                user.getId().toString(),
-                user.getNom(),
-                user.getPrenom(),
-                user.getEmail(),
-                roles,
-                activeRole,
-                null);
+        String activeRole = SecurityContextHolder.getContext()
+                            .getAuthentication()
+                            .getAuthorities()
+                            .stream()
+                            .findFirst()
+                            .map(a -> a.getAuthority().replace("ROLE_", ""))
+                            .orElse(user.getRoles().iterator().next().name());
+
+        return AuthResponse.builder()
+               .userId(user.getId().toString())
+               .nom(user.getNom())
+               .prenom(user.getPrenom())
+               .email(user.getEmail())
+               .roles(user.getRoles().stream().map(Role::name).toList())
+               .activeRole(activeRole)
+               .message(null)
+               .build();
+
+    }
+
+    public AuthResponse switchRole(String email, String targetRole, HttpServletResponse response) {
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        // Vérifier que le rôle demandé appartient bien à cet utilisateur
+        Role role = Role.valueOf(targetRole);
+        if (!user.getRoles().contains(role)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+            "Vous ne possédez pas ce rôle");
+        }
+
+        // Générer un nouveau JWT avec le rôle actif
+        String jwt = jwtService.generateToken(user, targetRole);
+
+        Cookie cookie = new Cookie("deliverma_jwt", jwt);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false);
+        cookie.setPath("/");
+        cookie.setMaxAge(86400);
+        cookie.setAttribute("SameSite", "Strict");
+        response.addCookie(cookie);
+
+        return AuthResponse.builder()
+            .userId(user.getId().toString())
+            .nom(user.getNom())
+            .prenom(user.getPrenom())
+            .email(user.getEmail())
+            .roles(user.getRoles().stream().map(Role::name).toList())
+            .activeRole(targetRole)
+            .message("Role switched successfully")
+            .build();
     }
 }

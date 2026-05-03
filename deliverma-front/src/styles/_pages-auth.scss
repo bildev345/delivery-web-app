@@ -151,3 +151,73 @@
     background: $gray2;
     margin: 0 .75rem;
 }
+
+.space-selector {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    margin: .5rem 0;
+}
+
+.space-option {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    padding: .85rem 1rem;
+    border: 1.5px solid $gray2;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    text-align: left;
+    transition: all .15s;
+    width: 100%;
+
+    &:hover:not(:disabled) {
+        border-color: $orange;
+        background: rgba($orange, .04);
+        transform: translateX(3px);
+    }
+
+    &:disabled { opacity: .6; cursor: not-allowed; }
+}
+
+.space-option-icon {
+    font-size: 1.5rem;
+    width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.space-option-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: .1rem;
+}
+
+.space-option-label {
+    font-size: .88rem;
+    font-weight: 700;
+    color: $dark;
+}
+
+.space-option-sub {
+    font-size: .72rem;
+    color: #64748B;
+}
+
+.space-option-arrow {
+    color: #94A3B8;
+    font-size: 1rem;
+    transition: transform .15s;
+}
+
+.space-option:hover .space-option-arrow {
+    transform: translateX(3px);
+    color: $orange;
+}
+
+.role-switcher {
+    display: flex;
+    gap: .4rem;
+}

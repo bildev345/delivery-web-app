@@ -4,7 +4,7 @@ export const VendeurHeader = () => {
     const { user } = useAuth();
 
     return (
-        <header className="admin-header">
+        <header className="header">
                     <div className="header-left" />
                     <div className="header-right">
                         <div className="header-user">

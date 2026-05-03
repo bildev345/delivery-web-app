@@ -7,17 +7,17 @@ import { AdminHeader } from './AdminHeader';
 export default function AdminLayout() {
     const [collapsed, setCollapsed] = useState(false);
     return (
-        <div className={`admin-layout ${collapsed ? 'admin-layout--collapsed' : ''}`}>
+        <div className={`layout ${collapsed ? 'layout--collapsed' : ''}`}>
 
             <AdminSidebar collapsed={collapsed} setCollapsed={setCollapsed}/>
 
             {/* ── Main ────────────────────────────────── */}
-            <div className="admin-main">
+            <div className="main">
 
                 <AdminHeader/>
                 
                 {/* Page content */}
-                <main className="admin-content">
+                <main className="content">
                     <Outlet />
                 </main>
 

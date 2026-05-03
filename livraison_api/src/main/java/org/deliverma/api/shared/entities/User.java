@@ -67,7 +67,7 @@ public class User implements UserDetails{
         joinColumns = @JoinColumn(name = "user_id")
     )
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, name = "role")
+    @Column(name = "role")
     private Set<Role> roles = new HashSet<>();
 
     @Column(nullable = false, unique = true)

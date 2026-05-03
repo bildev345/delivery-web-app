@@ -11,7 +11,7 @@ export default function ProtectedRoute({ children, roles }) {
     if (!user) return <Navigate to="/login" replace />;
 
     // Connecté mais mauvais rôle → 403
-    if (roles && !roles.includes(user.role)) {
+    if (roles && !roles.includes(user.activeRole)) {
         return <Navigate to="/403" replace />;
     }
 

@@ -30,6 +30,14 @@ export default function AuthProvider({ children }) {
         await authApi.logout();
         setUser(null);
     };
+    const switchRole = async (targetRole) => {
+        const data = await authApi.switchRole(targetRole);
+        setUser(data);
+        return data;
+    };
+    const hasRole = (role) => user?.roles?.includes(role);
+    const activeRole  = user?.activeRole;
+    const hasMultiple = user?.roles?.length > 1;
 
     return (
         <AuthContext.Provider value={{
@@ -38,8 +46,11 @@ export default function AuthProvider({ children }) {
             login,
             register,
             logout,
+            switchRole,
+            hasRole,
+            activeRole,
+            hasMultiple,
             isAuthenticated: !!user,
-            hasRole: (role) => user?.role === role,
         }}>
             {children}
         </AuthContext.Provider>

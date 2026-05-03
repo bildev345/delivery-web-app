@@ -1,4 +1,3 @@
-// src/pages/auth/RegisterPage.jsx
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -125,7 +124,6 @@ export const RegisterPage = () => {
         }
     };
 
-    // ── Render ────────────────────────────────────────
     return (
         <div className="auth-page">
             <div className="auth-form auth-form--wide">
