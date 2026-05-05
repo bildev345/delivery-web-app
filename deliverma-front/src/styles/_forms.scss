@@ -40,6 +40,74 @@
         min-height: 90px;
         font-family: inherit;
     }
+    .image-preview-container {
+        position: relative;
+        display: inline-block;
+        margin-bottom: .75rem;
+    }
+
+    .image-preview {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 2px solid $gray2;
+        display: block;
+    }
+
+    .image-remove-btn {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: $red;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: .7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+    }
+
+    .image-upload-zone {
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .image-upload-label {
+        display: inline-flex;
+        align-items: center;
+        padding: .45rem .85rem;
+        border: 1.5px dashed $gray2;
+        border-radius: 8px;
+        font-size: .82rem;
+        color: $text;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all .15s;
+
+        &:hover { border-color: $blue; color: $blue; background: rgba($blue, .04); }
+        &.uploading { opacity: .6; cursor: not-allowed; }
+    }
+
+    .image-url-input {
+        flex: 1;
+        min-width: 180px;
+        padding: .45rem .65rem;
+        border: 1.5px solid $gray2;
+        border-radius: 8px;
+        font-size: .78rem;
+        color: $text;
+
+        &:focus { outline: none; border-color: $blue; }
+        &::placeholder { color: #94A3B8; }
+    }
 }
 
 .form-row {

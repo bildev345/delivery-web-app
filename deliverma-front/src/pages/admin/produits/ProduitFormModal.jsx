@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useCreateProduit, useUpdateProduit } from '../../../hooks/useProduits';
+import { ImageUpload } from '../../../components/shared/ImageUpload';
 
 export const ProduitFormModal = ({ produit, categories, onClose }) => {
     //console.log("produit: ", produit);
@@ -14,12 +15,21 @@ export const ProduitFormModal = ({ produit, categories, onClose }) => {
                 photo: produit.photo || '',
                 categorieId: produit.categorie?.id || '',
               }
-            : { designation: '', description: '', photo: '', categorieId: '' }
+            : { 
+                designation: '',
+                description: '', 
+                photo: '', 
+                categorieId: '' 
+            }
     );
     const [errors, setErrors] = useState({});
     const createMutation = useCreateProduit();
     const updateMutation = useUpdateProduit();
     const isPending = createMutation.isPending || updateMutation.isPending;
+    
+    const handlePhotoChange = (url) => {
+        setForm(prev => ({...prev, photo : url}))
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -38,7 +48,10 @@ export const ProduitFormModal = ({ produit, categories, onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const ve = validate();
-        if (Object.keys(ve).length > 0) { setErrors(ve); return; }
+        if (Object.keys(ve).length > 0) {
+            setErrors(ve);
+            return; 
+        }
 
         const payload = {
             ...form,
@@ -47,7 +60,10 @@ export const ProduitFormModal = ({ produit, categories, onClose }) => {
 
         try {
             if (isEditing) {
-                await updateMutation.mutateAsync({ id: produit.id, data: payload });
+                await updateMutation.mutateAsync({ 
+                    id: produit.id,
+                    data: payload 
+                });
             } else {
                 await createMutation.mutateAsync(payload);
             }
@@ -111,13 +127,12 @@ export const ProduitFormModal = ({ produit, categories, onClose }) => {
                                 <span className="field-error">{errors.description}</span>
                             )}
                         </div>
-                        <div className="form-group">
-                            <label>URL Photo</label>
-                            <input name="photo" value={form.photo}
-                                onChange={handleChange}
-                                placeholder="https://exemple.com/photo.jpg"
-                            />
-                        </div>
+                        <ImageUpload
+                            label = "Photo du produit"
+                            value = {form.photo}
+                            onChange={handlePhotoChange}
+                            folder="produits"
+                        />
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-outline"
