@@ -29,17 +29,17 @@ app:
            refresh-token-expiration: 604800000 # 7 days
         disposable-email: 10minutemail,20minutemail,33mail,5ymail,anonbox,guerrillamail,mailinator,maildrop,mailnesia,moakt,my10minutemail,throwawaymail,trashmail,temp-mail,tempmail,truemail,yopmail
     cookie:
-        name: deliverma_jwt
+        name: cookie name
         secure: false
         same-site: Strict
     cors:
         allowed-origins: http://localhost:5173  
 
 cloudinary:
-    cloud-name : dnb20inja
-    api-key: 653126328119553
-    api-secret: kpMOtbpSFV6mjfU1UvRgAs2URyI
-    upload-preset : deliverma_preset
+    cloud-name : cloud name
+    api-key: api key
+    api-secret: api secret
+    upload-preset : upload-preset
 
 
 
