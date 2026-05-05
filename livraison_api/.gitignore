@@ -32,7 +32,7 @@ build/
 ### VS Code ###
 .vscode/
 .env
-!**/src/main/java/org/deliverma/api/resources/application.yml
-!**/src/main/java/org/deliverma/api/resources/keys/
+**/src/main/**/application.yml
+**/src/main/**/keys/
 
 
