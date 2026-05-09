@@ -1,7 +1,8 @@
-package org.deliverma.api.vendeur;
+package org.deliverma.api.vendeur.controller;
 
 import org.deliverma.api.admin.dto.vendeur.VendeurResponse;
 import org.deliverma.api.admin.dto.vendeur.VendeurUpdateRequest;
+import org.deliverma.api.vendeur.service.VendeurService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;

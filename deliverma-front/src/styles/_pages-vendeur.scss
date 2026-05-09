@@ -1,0 +1,98 @@
+@use 'variables' as *;
+
+.profil-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.profil-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+}
+
+.profil-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid $gray2;
+    h3 { font-size: .95rem; font-weight: 700; color: $dark; }
+}
+
+.profil-info-list  { display: flex; flex-direction: column; gap: .85rem; }
+.profil-info-item  { display: flex; flex-direction: column; gap: .2rem; }
+.profil-info-label {
+    font-size: .72rem; font-weight: 600;
+    color: #64748B; text-transform: uppercase; letter-spacing: .04em;
+}
+.profil-info-value { font-size: .88rem; color: $dark; font-weight: 500; }
+
+.profil-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: .65rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid $gray2;
+}
+
+// ── Offres ───────────────────────────────────────────
+.ttc-preview {
+    background: #F0FDF4;
+    border: 1px solid #A7F3D0;
+    border-radius: 6px;
+    padding: .5rem .75rem;
+    font-size: .82rem;
+    color: #065F46;
+    margin-bottom: .75rem;
+    margin-top: -.5rem;
+}
+
+.tracable-toggle {
+    margin-bottom: 1rem;
+    padding: .85rem;
+    border: 1.5px solid $gray2;
+    border-radius: 8px;
+    background: $gray;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    cursor: pointer;
+
+    input[type="checkbox"] {
+        width: auto;
+        margin-top: .2rem;
+        accent-color: $orange;
+        flex-shrink: 0;
+    }
+}
+
+.toggle-text {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+}
+
+.toggle-title {
+    font-size: .85rem;
+    font-weight: 700;
+    color: $dark;
+}
+
+.toggle-sub {
+    font-size: .75rem;
+    color: #64748B;
+    line-height: 1.4;
+}

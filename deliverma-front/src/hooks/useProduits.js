@@ -8,6 +8,12 @@ export const useProduits = (params = {}) => {
         placeholderData : keepPreviousData
     });
 }
+export const useProduitsPublic = (params = {}) => {
+    return useQuery({
+        queryKey: ['catalogue', params],
+        queryFn: () => produitApi.getAllPublic(params)
+    });
+}
 
 export const useCreateProduit = () => {
     const qc = useQueryClient();

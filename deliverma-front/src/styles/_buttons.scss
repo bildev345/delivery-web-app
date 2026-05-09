@@ -16,14 +16,29 @@
 
     &:hover:not(:disabled)  { opacity: .88; }
     &:active:not(:disabled) { transform: scale(.98); }
-    &:disabled              { opacity: .55; cursor: not-allowed; }
+    &:disabled { opacity: .55; cursor: not-allowed; }
 
-    &-orange { background: $orange;  color: white; }
-    &-blue { background: $blue;    color: white; }
-    &-green { background: $green;   color: white; }
-    &-red { background: $red;     color: white; }
-    &-success { background: $green;   color: white; }
-    &-danger { background: $red;     color: white; }
+    &-orange { 
+        background: $primary;
+        color: $dark;
+        &:hover:not(:disabled){
+            background: $primary-dark;
+            opacity: 1;
+        }
+    }
+    &-primary{
+        background: $primary;     
+        color: $dark;             
+        &:hover:not(:disabled) {
+            background: $primary-dark;
+            opacity: 1; 
+        }  
+    }
+    &-blue { background: $blue; color: white; }
+    &-green { background: $green; color: white; }
+    &-red { background: $red; color: white; }
+    &-success { background: $green; color: white; }
+    &-danger { background: $red; color: white; }
 
     &-outline {
         background: transparent;

@@ -7,7 +7,6 @@ export const ImageUpload = ({ label = 'photo', value, onChange, folder = 'genera
     
     const handleFileChange = async(e) => {
         const file = e.target.files[0];
-        console.log(file);
         if(!file) return;
 
         //validation coté client
@@ -34,6 +33,7 @@ export const ImageUpload = ({ label = 'photo', value, onChange, folder = 'genera
                 }
             );
             if(!response.ok){
+                console.log("response: ",response);
                 const err = await response.json();
                 throw new Error(err.error || "Échec de l'upload ");
             }

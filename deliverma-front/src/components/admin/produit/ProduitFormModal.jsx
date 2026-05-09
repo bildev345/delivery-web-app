@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useCreateProduit, useUpdateProduit } from '../../../hooks/useProduits';
-import { ImageUpload } from '../../../components/shared/ImageUpload';
+import { ImageUpload } from '../../shared/ImageUpload';
 
 export const ProduitFormModal = ({ produit, categories, onClose }) => {
     //console.log("produit: ", produit);

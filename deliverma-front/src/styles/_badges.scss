@@ -14,3 +14,7 @@
     &-pending  { background: #FEF3C7; color: #92400E; }
     &-blue     { background: $blue-light; color: $blue; }
 }
+.badge-info {
+    background: $bleu-ciel;    // #add8f3
+    color: $blue;              // #1A56A0 — bon contraste sur bleu ciel clair
+}

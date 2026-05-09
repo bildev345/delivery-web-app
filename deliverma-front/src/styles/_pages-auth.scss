@@ -36,7 +36,7 @@
         margin-top: .5rem;
         transition: opacity .15s;
 
-        &:hover    { opacity: .9; }
+        &:hover { opacity: .9; }
         &:disabled { opacity: .6; cursor: not-allowed; }
     }
 
@@ -90,9 +90,9 @@
     &:hover { border-color: $orange; }
 
     &--active {
-        border-color: $orange;
-        background: rgba($orange, .06);
-        color: color.adjust($orange, $lightness: -15%);
+        border-color: $primary;
+        background: rgba($primary, .08);
+        color: color.adjust($primary, $lightness: -30%);
         font-weight: 600;
     }
 }
@@ -115,8 +115,8 @@
         font-weight: 700;
 
         .stepper-circle {
-            background: $orange;
-            color: white;
+            background: $primary;
+            color: $dark;
         }
     }
 

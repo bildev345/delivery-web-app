@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.UUID;
 
 import org.deliverma.api.admin.dto.vendeur.VendeurResponse;
-import org.deliverma.api.vendeur.VendeurService;
+import org.deliverma.api.vendeur.service.VendeurService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;

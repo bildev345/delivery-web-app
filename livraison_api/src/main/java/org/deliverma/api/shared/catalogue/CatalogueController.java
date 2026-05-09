@@ -8,7 +8,6 @@ import org.deliverma.api.admin.service.ProduitService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.micrometer.core.ipc.http.HttpSender.Response;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -32,7 +31,7 @@ public class CatalogueController {
         @RequestParam(required = false) UUID categorieId
     ) {
         return ResponseEntity.ok(
-            produitService.getCatalogue(search, categorieId)
+            produitService.getProduitsHavingOffreAndActive(search, categorieId)
         );
     }
 
@@ -40,6 +39,13 @@ public class CatalogueController {
     public ResponseEntity<ProduitResponse> getProduit(@PathVariable UUID id) {
         return ResponseEntity.ok(produitService.getProductById(id));
     }
+
+    //récuperer tous les produits
+    @GetMapping("all")
+    public ResponseEntity<List<ProduitResponse>> getAllProducts() {
+        return ResponseEntity.ok(produitService.getllProducts());
+    }
+    
     
     
 }

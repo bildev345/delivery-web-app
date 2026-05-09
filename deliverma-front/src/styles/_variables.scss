@@ -1,10 +1,26 @@
-$blue:        #1A56A0;
-$blue-light:  #D6E4F7;
-$orange:      #F59E0B;
-$dark:        #0F172A;
-$gray:        #F8FAFC;
-$gray2:       #E2E8F0;
-$green:       #10B981;
-$red:         #EF4444;
-$text:        #334155;
+@use 'sass:color';
 
+// ── Couleurs principales ──────────────────────────────
+$primary:#60c3e2;   // ← remplace $orange — bleu cyan (actions, CTA)
+$primary-dark:#3aa8cc;  // version foncée pour hover
+$primary-light:#d6f1fa; // version très claire pour backgrounds
+
+// ── Bleus (navigation, liens, focus) ─────────────────
+$blue:#1A56A0;   // bleu foncé — liens, outline buttons
+$blue-light:#D6E4F7;   // fond bleu clair
+
+// ── Neutres ───────────────────────────────────────────
+$dark:#0F172A;   // sidebar, texte fort
+$text:#334155;   // texte courant
+$gray:#F8FAFC;   // fond de page
+$gray2:#E2E8F0;   // bordures
+
+// ── Couleurs de la nouvelle palette (à utiliser en accents) ──
+$gris-custom:#98979d;  // texte secondaire, placeholders
+$blanc-custom:#eeedeb;  // fond alternatif, cartes légères
+$bleu-ciel:#add8f3;  // accents légers, badges info
+
+// ── Sémantiques ───────────────────────────────────────
+$green:#10B981;   // succès
+$red:#EF4444;   // erreur, danger
+$orange: $primary;  // alias pour ne pas tout casser d'un coup

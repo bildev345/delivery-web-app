@@ -3,7 +3,6 @@ package org.deliverma.api.shared.entities;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -68,12 +67,14 @@ public class User implements UserDetails{
     )
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
+    @Builder.Default
     private Set<Role> roles = new HashSet<>();
 
     @Column(nullable = false, unique = true)
     private String telephone;
 
     private String avatar;
+    @Builder.Default
     private boolean actif = true;
     
     @Column(nullable = false, updatable = false)

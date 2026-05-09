@@ -4,7 +4,8 @@ import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import {FaArrowLeft, FaArrowRight} from 'react-icons/fa6';
 import { useCategories } from '../../../hooks/useCategories';
 import { useDeleteProduit, useProduits } from '../../../hooks/useProduits';
-import { ProduitFormModal } from './ProduitFormModal';
+import { ProduitFormModal } from '../../../components/admin/produit/ProduitFormModal';
+
 
 export const ProduitsPage = () => {
     const [search, setSearch] = useState('');

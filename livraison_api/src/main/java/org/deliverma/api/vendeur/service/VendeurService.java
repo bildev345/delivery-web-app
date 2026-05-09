@@ -1,4 +1,4 @@
-package org.deliverma.api.vendeur;
+package org.deliverma.api.vendeur.service;
 
 import java.util.UUID;
 
@@ -25,7 +25,6 @@ public class VendeurService {
     private final UserRepository userRepository;
     private final VendeurMapper vendeurMapper;
     
-    // le service lié au route PUT /api/v1/vendeur/profil
     public VendeurResponse updateBoutique(VendeurUpdateRequest request){
         Vendeur vendeur = getVendeurByEmail();
         vendeur.setNomBoutique(request.nomBoutique());
@@ -35,7 +34,6 @@ public class VendeurService {
         return vendeurMapper.toResponse(vendeurRepository.save(vendeur));
     } 
 
-    // le service lié au route GET /api/v1/vendeur/profil
     public Vendeur getVendeurByEmail(){
         String email = SecurityUtils.currentUserEmail();
         User user = userRepository.findByEmail(email)

@@ -33,7 +33,8 @@ export const produitApi = {
         }
         return api.get(`/catalogue/produits?${q.toString()}`);
         
-    }
+    },
+    getAllPublic : () => api.get(`/catalogue/all`)
 
 
 }

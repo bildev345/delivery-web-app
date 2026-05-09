@@ -76,6 +76,12 @@
     padding: 1.25rem;
     box-shadow: 0 1px 4px rgba(0,0,0,.07);
 }
+.card-light {
+    background: $blanc-custom;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+}
 
 .card-simple-title {
     font-size: .9rem;
@@ -112,48 +118,4 @@
     flex-shrink: 0;
 }
 
-// ── Profil vendeur ───────────────────────────────────
-.profil-grid {
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 1.5rem;
-    align-items: start;
 
-    @media (max-width: 900px) {
-        grid-template-columns: 1fr;
-    }
-}
-
-.profil-card {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,.07);
-}
-
-.profil-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.25rem;
-    padding-bottom: .75rem;
-    border-bottom: 1px solid $gray2;
-    h3 { font-size: .95rem; font-weight: 700; color: $dark; }
-}
-
-.profil-info-list  { display: flex; flex-direction: column; gap: .85rem; }
-.profil-info-item  { display: flex; flex-direction: column; gap: .2rem; }
-.profil-info-label {
-    font-size: .72rem; font-weight: 600;
-    color: #64748B; text-transform: uppercase; letter-spacing: .04em;
-}
-.profil-info-value { font-size: .88rem; color: $dark; font-weight: 500; }
-
-.profil-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: .65rem;
-    margin-top: 1.25rem;
-    padding-top: 1rem;
-    border-top: 1px solid $gray2;
-}

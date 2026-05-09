@@ -103,9 +103,9 @@ $header-h: 60px;
 
     &:hover { background: #1E293B; color: white; }
     &--active {
-        background: rgba($orange, .12);
-        color: $orange;
-        font-weight: 600;
+        background: rgba($primary, .12);
+        color: $primary;
+        //font-weight: 600;
     }
 }
 

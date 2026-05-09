@@ -31,7 +31,7 @@ public interface ProduitRepository extends JpaRepository<Produit, UUID>{
 
 
             """)
-    List<Produit> findCataloguePublic(
+    List<Produit> findCatalogueProduitHavingOffreAndActive(
         @Param("search") String search,
         @Param("categorieId") UUID categorieId
     );

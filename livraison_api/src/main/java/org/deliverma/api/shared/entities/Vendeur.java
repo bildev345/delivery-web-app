@@ -41,6 +41,7 @@ public class Vendeur {
     private String ville;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean actif = true;
 
     @OneToOne
@@ -48,6 +49,7 @@ public class Vendeur {
     private User user;
 
     @OneToMany(mappedBy = "vendeur", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Offre> offres = new ArrayList<>();
 
 }

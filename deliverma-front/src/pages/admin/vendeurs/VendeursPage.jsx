@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useVendeurs, useToggleVendeur } from '../../../hooks/useVendeurs';
-import { VendeurTable } from './VendeurTable';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
+import { VendeurTable } from '../../../components/admin/vendeur/VendeurTable';
 
 export const VendeursPage = () => {
     const [page, setPage] = useState(0);

@@ -73,9 +73,9 @@ public class ProduitService {
         produitRepository.delete(produit);
     }
 
-    public List<ProduitResponse> getCatalogue(
+    public List<ProduitResponse> getProduitsHavingOffreAndActive(
         String search, UUID categorieId){
-        return produitRepository.findCataloguePublic(search, categorieId)
+        return produitRepository.findCatalogueProduitHavingOffreAndActive(search, categorieId)
         .stream()
         .map(mapper::toProduitResponse)
         .toList();
@@ -89,6 +89,13 @@ public class ProduitService {
     private Categorie findCategorieOrThrow(UUID id){
         return categorieRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Catégorie", id));
+    }
+
+    public List<ProduitResponse> getllProducts() {
+        return produitRepository.findAll()
+                                .stream()
+                                .map(mapper::toProduitResponse)
+                                .toList();
     } 
     
 }

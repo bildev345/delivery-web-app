@@ -46,8 +46,10 @@ public class ZoneLivraison {
     private boolean active;
 
     @OneToMany(mappedBy = "zoneLivraison", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<LivreurZone> livreurs = new ArrayList<>();
 
     @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<AdresseClient> adresses = new ArrayList<>();
 }

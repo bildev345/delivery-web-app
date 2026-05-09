@@ -11,4 +11,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface VendeurRepository extends JpaRepository<Vendeur, UUID> {
     Optional<Vendeur> findByUserId(UUID userId);
     Page<Vendeur> findAll(Pageable pageable);
+    
+    // méthode 1
+    // @Query("select v from Vendeur v where v.user.email = :userEmail")
+    // Optional<Vendeur> findByUserEmail(String userEmail);
+    
+    // méthode 2
+    Optional<Vendeur> findByUserEmail(String userEmail);
 }

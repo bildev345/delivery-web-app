@@ -49,5 +49,6 @@ public class Produit {
     private Categorie categorie;
 
     @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Offre> offres = new ArrayList<>();
 }

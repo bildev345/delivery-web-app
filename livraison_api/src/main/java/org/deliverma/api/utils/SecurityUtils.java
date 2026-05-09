@@ -9,7 +9,7 @@ public class SecurityUtils {
     public static String currentUserEmail(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth == null || !auth.isAuthenticated()){
-            throw new IllegalStateException("No authticated user found");
+            throw new IllegalStateException("No autheticated user found");
         }
         Object principal = auth.getPrincipal();
         if(!(principal instanceof  UserDetails userDetails)){
@@ -17,4 +17,5 @@ public class SecurityUtils {
         }
         return userDetails.getUsername();
     }
+  
 }
