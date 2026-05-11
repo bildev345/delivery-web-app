@@ -1,22 +1,25 @@
 package org.deliverma.api.vendeur.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.deliverma.api.admin.repository.ProduitRepository;
 import org.deliverma.api.shared.entities.Offre;
 import org.deliverma.api.shared.entities.Produit;
+import org.deliverma.api.shared.entities.UniteProduit;
 import org.deliverma.api.shared.entities.Vendeur;
+import org.deliverma.api.shared.enums.UniteStatut;
 import org.deliverma.api.shared.exception.BusinessException;
 import org.deliverma.api.shared.exception.ResourceNotFoundException;
 import org.deliverma.api.shared.repositories.VendeurRepository;
 import org.deliverma.api.utils.SecurityUtils;
+import org.deliverma.api.vendeur.dto.ligneCommande.LigneCommandeRequest;
 import org.deliverma.api.vendeur.dto.offre.OffreRequest;
 import org.deliverma.api.vendeur.dto.offre.OffreResponse;
 import org.deliverma.api.vendeur.mapper.OffreMapper;
 import org.deliverma.api.vendeur.repository.LigneCommandeRepository;
 import org.deliverma.api.vendeur.repository.OffreRepository;
+import org.deliverma.api.vendeur.repository.UniteProduitRepository;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +34,7 @@ public class OffreService {
     private final VendeurRepository vendeurRepository;
     private final OffreMapper offreMapper;
     private final LigneCommandeRepository ligneCommandeRepository;
+    private final UniteProduitRepository uniteProduitRepository;
 
     public List<OffreResponse> findVendeurOffres(){
         String userEmail = SecurityUtils.currentUserEmail();

@@ -1,6 +1,8 @@
 package org.deliverma.api.shared.entities;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.OnDelete;
@@ -13,10 +15,12 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +29,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class LigneCommande {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.AUTO)
@@ -48,8 +53,8 @@ public class LigneCommande {
     @JoinColumn(name = "offre_id")
     private Offre offre;
 
+    // null pour produits fongibles
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unite_id")
     private UniteProduit uniteProduit;
 
     @Transient

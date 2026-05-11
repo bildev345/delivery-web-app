@@ -46,6 +46,7 @@ public class UniteProduit {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private UniteStatut statut = UniteStatut.DISPONIBLE;
     
     // date d'expiration de garantie
