@@ -6,14 +6,12 @@ import java.util.UUID;
 import org.deliverma.api.admin.repository.ProduitRepository;
 import org.deliverma.api.shared.entities.Offre;
 import org.deliverma.api.shared.entities.Produit;
-import org.deliverma.api.shared.entities.UniteProduit;
 import org.deliverma.api.shared.entities.Vendeur;
-import org.deliverma.api.shared.enums.UniteStatut;
 import org.deliverma.api.shared.exception.BusinessException;
+import org.deliverma.api.shared.exception.DuplicateResourceException;
 import org.deliverma.api.shared.exception.ResourceNotFoundException;
 import org.deliverma.api.shared.repositories.VendeurRepository;
 import org.deliverma.api.utils.SecurityUtils;
-import org.deliverma.api.vendeur.dto.ligneCommande.LigneCommandeRequest;
 import org.deliverma.api.vendeur.dto.offre.OffreRequest;
 import org.deliverma.api.vendeur.dto.offre.OffreResponse;
 import org.deliverma.api.vendeur.mapper.OffreMapper;
@@ -34,7 +32,6 @@ public class OffreService {
     private final VendeurRepository vendeurRepository;
     private final OffreMapper offreMapper;
     private final LigneCommandeRepository ligneCommandeRepository;
-    private final UniteProduitRepository uniteProduitRepository;
 
     public List<OffreResponse> findVendeurOffres(){
         String userEmail = SecurityUtils.currentUserEmail();
@@ -64,7 +61,7 @@ public class OffreService {
         
         // vérifier est ce que le vendeur déjà une offre sur ce produit
         if(offreRepository.existsByVendeurIdAndProduitId(vendeur.getId(), offreRequest.produitId())){
-            throw new BusinessException("Vous avez déjà une offre sur ce produit");
+            throw new DuplicateResourceException("Vous avez déjà une offre sur ce produit" + produit.getDesignation());
         }
         Offre offre = offreMapper.toEntity(offreRequest, produit, vendeur);
         return offreMapper.toResponse(offreRepository.save(offre));   

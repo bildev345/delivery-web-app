@@ -30,7 +30,7 @@ public record RegisterRequest(
 
     @NotBlank(message = "{VALIDATION.REGISTRATION.EMAIL.BLANK}")
     @Email(message = "{VALIDATION.REGISTRATION.EMAIL.FORMAT}")
-    //@NonDisposableEmail(message = "{VALIDATION.REGISTRATION.EMAIL.DISPOSABLE}")
+    @NonDisposableEmail(message = "{VALIDATION.REGISTRATION.EMAIL.DISPOSABLE}")
     @Schema(example = "bilal@mail.com")
     String email,
     

@@ -57,11 +57,9 @@ public class Commande {
     @Column(nullable = false)
     private StatutCommande statut;
 
-    @Column(nullable = false)
+    @Column(nullable = false, insertable = true, updatable = false)
     private BigDecimal fraisLivraison;
 
-    // @Column(nullable = false)
-    // private String adresseLivraison;
 
     @Column(nullable = false)
     private String villeLivraison;
@@ -78,10 +76,6 @@ public class Commande {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
-
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "zone_id")
-    // private ZoneLivraison zone;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "livreur_id")

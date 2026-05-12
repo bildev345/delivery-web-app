@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.deliverma.api.admin.dto.zoneLivraison.ZoneRequest;
-import org.deliverma.api.admin.dto.zoneLivraison.ZoneResponse;
+import org.deliverma.api.shared.dto.ZoneResponse;
 import org.deliverma.api.admin.service.ZoneService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

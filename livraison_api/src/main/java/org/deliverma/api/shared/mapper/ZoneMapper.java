@@ -1,7 +1,7 @@
-package org.deliverma.api.admin.mapper;
+package org.deliverma.api.shared.mapper;
 
 import org.deliverma.api.admin.dto.zoneLivraison.ZoneRequest;
-import org.deliverma.api.admin.dto.zoneLivraison.ZoneResponse;
+import org.deliverma.api.shared.dto.ZoneResponse;
 import org.deliverma.api.shared.entities.ZoneLivraison;
 import org.springframework.stereotype.Component;
 

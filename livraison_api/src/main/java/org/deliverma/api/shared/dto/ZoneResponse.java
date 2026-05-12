@@ -1,4 +1,4 @@
-package org.deliverma.api.admin.dto.zoneLivraison;
+package org.deliverma.api.shared.dto;
 
 import java.math.BigDecimal;
 import java.util.UUID;

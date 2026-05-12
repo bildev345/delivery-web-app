@@ -3,9 +3,9 @@ package org.deliverma.api.admin.service;
 import java.util.List;
 import java.util.UUID;
 
-import org.deliverma.api.admin.mapper.ZoneMapper;
+import org.deliverma.api.shared.mapper.ZoneMapper;
 import org.deliverma.api.admin.dto.zoneLivraison.ZoneRequest;
-import org.deliverma.api.admin.dto.zoneLivraison.ZoneResponse;
+import org.deliverma.api.shared.dto.ZoneResponse;
 import org.deliverma.api.admin.repository.ZoneLivraisonRepository;
 import org.deliverma.api.shared.entities.ZoneLivraison;
 import org.deliverma.api.shared.exception.DuplicateResourceException;

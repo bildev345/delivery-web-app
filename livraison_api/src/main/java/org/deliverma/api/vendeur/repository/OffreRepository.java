@@ -23,6 +23,6 @@ public interface OffreRepository extends JpaRepository<Offre, UUID> {
 
     //Lecture avec verrou pessimiste - empeche deux transactions simultanées
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("select o from o where o.id = :id")
+    @Query("select o from Offre o where o.id = :id")
     Optional<Offre> findByIdWithLock(@Param("id") UUID id);
 }
