@@ -8,5 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClientRepository extends JpaRepository<Client, UUID>{
     Optional<Client> findByUserId(UUID userID);
+
+    Optional<Client> findByUserEmail(String email);
     
 }

@@ -17,6 +17,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "clients")
-
+@Builder
 public class Client {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.AUTO)
@@ -36,9 +37,11 @@ public class Client {
     private User user;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<AdresseClient> adresseClients = new ArrayList<>();
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Commande> commandes = new ArrayList<>();
 
     @Column(length = 100)
@@ -47,6 +50,10 @@ public class Client {
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime dateInscription;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private int pointsFidelite = 0;
     
 
 }
