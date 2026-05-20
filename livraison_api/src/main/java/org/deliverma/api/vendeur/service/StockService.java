@@ -10,7 +10,7 @@ import org.deliverma.api.shared.entities.UniteProduit;
 import org.deliverma.api.shared.enums.UniteStatut;
 import org.deliverma.api.shared.exception.BusinessException;
 import org.deliverma.api.shared.exception.ResourceNotFoundException;
-import org.deliverma.api.vendeur.dto.ligneCommande.LigneCommandeRequest;
+import org.deliverma.api.client.dto.commande.LigneCommandeRequest;
 import org.deliverma.api.vendeur.repository.OffreRepository;
 import org.deliverma.api.vendeur.repository.UniteProduitRepository;
 import org.springframework.stereotype.Service;
@@ -25,8 +25,7 @@ public class StockService {
     private final UniteProduitRepository uniteProduitRepository;
 
     // appelée avant création commande
-    @Transactional
-    public void verifierEtDecrementerStocks(List<LigneCommandeRequest> lignes){
+    public void verifierStocks(List<LigneCommandeRequest> lignes){
         for(LigneCommandeRequest ligne : lignes){
             verifierStock(ligne.offreId(), ligne.quantite());
         }
@@ -34,7 +33,7 @@ public class StockService {
     }
     // décrementation aprés création des LigneCommande
     @Transactional
-    public void decrementerStock(List<LigneCommande> lignesCreees){
+    public void decrementerStocks(List<LigneCommande> lignesCreees){
        for(LigneCommande ligne : lignesCreees){
         decrementerStock(ligne);
        }
@@ -71,7 +70,7 @@ public class StockService {
         
     }
 
-    public void decrementerStock(LigneCommande ligneCommande){
+    private void decrementerStock(LigneCommande ligneCommande){
         Offre offre = findWithLock(ligneCommande.getOffre().getId());
         if(offre.isTracable()){
             if(ligneCommande.getQuantite() != 1){
@@ -159,7 +158,4 @@ public class StockService {
         offre.setStock((int) uniteProduitRepository.countByOffreIdAndStatut(offre.getId(), UniteStatut.DISPONIBLE));
 
     }
-
-    
-
 }

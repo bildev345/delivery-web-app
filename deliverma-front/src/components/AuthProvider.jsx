@@ -36,6 +36,7 @@ export default function AuthProvider({ children }) {
         return data;
     };
     const hasRole = (role) => user?.roles?.includes(role);
+    console.log(user);
     const activeRole  = user?.activeRole;
     const hasMultiple = user?.roles?.length > 1;
 

@@ -1,0 +1,492 @@
+@use 'variables' as *;
+@use 'sass:color';
+
+.adresses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.adresse-card {
+    background: white;
+    border: 2px solid $gray2;
+    border-radius: 12px;
+    padding: 1.25rem;
+    position: relative;
+    transition: border-color .15s;
+
+    &--default {
+        border-color: $primary;
+        background: rgba($primary, .03);
+    }
+}
+
+.adresse-default-badge {
+    position: absolute;
+    top: -10px;
+    left: 1rem;
+    background: $primary;
+    color: $dark;
+    font-size: .68rem;
+    font-weight: 700;
+    padding: .15rem .6rem;
+    border-radius: 999px;
+}
+
+.adresse-libelle {
+    font-weight: 700;
+    font-size: .9rem;
+    color: $dark;
+    margin-bottom: .5rem;
+}
+
+.adresse-details {
+    font-size: .82rem;
+    color: $text;
+    line-height: 1.7;
+}
+
+.adresse-zone {
+    font-size: .75rem;
+    color: $primary;
+    font-weight: 600;
+    margin-top: .3rem;
+}
+
+.adresse-actions {
+    display: flex;
+    gap: .4rem;
+    margin-top: .75rem;
+    flex-wrap: wrap;
+}
+
+.zone-preview {
+    background: rgba($primary, .08);
+    border: 1px solid rgba($primary, .3);
+    border-radius: 6px;
+    padding: .5rem .75rem;
+    font-size: .78rem;
+    color : color.adjust(#60c3e2, $lightness: -30%);
+    font-weight: 600;
+    margin-top: .4rem;
+}
+
+// ── Checkout ──────────────────────────────────────────
+.checkout-page { padding: 1.75rem; }
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 1.5rem;
+    align-items: start;
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.checkout-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+
+    h3 {
+        font-size: .9rem;
+        font-weight: 700;
+        color: $dark;
+        margin-bottom: .75rem;
+        padding-bottom: .5rem;
+        border-bottom: 1px solid $gray2;
+    }
+}
+
+.checkout-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    position: sticky;
+    top: 80px;
+
+    h3 {
+        font-size: .9rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: .85rem;
+    padding: .35rem 0;
+    color: $text;
+
+    &.summary-reduction { color: $green; font-weight: 600; }
+}
+
+.summary-divider {
+    border: none;
+    border-top: 1px solid $gray2;
+    margin: .5rem 0;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: 800;
+    color: $dark;
+    padding: .35rem 0;
+}
+
+.field-success {
+    display: block;
+    font-size: .72rem;
+    color: $green;
+    margin-top: .25rem;
+    font-weight: 600;
+}
+
+// ── Commandes liste ───────────────────────────────────
+.commandes-list {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+.commande-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+}
+
+.commande-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .75rem;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+
+.commande-numero {
+    font-weight: 800;
+    font-size: .88rem;
+    color: $dark;
+    margin-right: .5rem;
+}
+
+.commande-lignes {
+    border-top: 1px solid $gray2;
+    border-bottom: 1px solid $gray2;
+    padding: .5rem 0;
+    margin-bottom: .75rem;
+}
+
+.commande-ligne-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: .82rem;
+    padding: .2rem 0;
+    color: $text;
+    gap: .5rem;
+}
+
+.commande-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.commande-total {
+    font-weight: 700;
+    color: $dark;
+    font-size: .88rem;
+    display: block;
+    margin-top: .2rem;
+}
+
+// Empty state 
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #64748B;
+
+    p { margin-bottom: 1rem; font-size: .9rem; }
+}
+
+// Tournée livreur 
+.tournee-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.tournee-card {
+    background: white;
+    border: 1px solid $gray2;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+
+.tournee-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5rem;
+}
+
+.tournee-adresse {
+    font-size: .82rem;
+    color: $primary;
+    font-weight: 600;
+    margin-bottom: .5rem;
+}
+
+.tournee-lignes {
+    border-top: 1px solid $gray2;
+    padding-top: .5rem;
+}
+
+// Panier 
+.panier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+.panier-count {
+    font-size: .85rem;
+    font-weight: 400;
+    color: #64748B;
+    margin-left: .75rem;
+}
+
+.panier-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 1.5rem;
+    align-items: start;
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.panier-items {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+.panier-item {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid $gray2;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: box-shadow .15s;
+
+    &:hover { box-shadow: 0 2px 8px rgba(0,0,0,.07); }
+
+    @media (max-width: 640px) {
+        flex-wrap: wrap;
+    }
+}
+
+.panier-item-image {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: $gray;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.panier-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.panier-item-nom {
+    font-weight: 700;
+    font-size: .88rem;
+    color: $dark;
+    margin-bottom: .2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panier-item-boutique {
+    font-size: .75rem;
+    color: #64748B;
+    margin-bottom: .2rem;
+}
+
+.panier-item-prix {
+    font-size: .82rem;
+    color: $primary;
+    font-weight: 600;
+}
+
+.panier-item-quantite {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    flex-shrink: 0;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1.5px solid $gray2;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .7rem;
+    color: $text;
+    transition: all .15s;
+
+    &:hover:not(:disabled) {
+        border-color: $primary;
+        color: $primary;
+    }
+    &:disabled { opacity: .4; cursor: not-allowed; }
+}
+
+.qty-value {
+    font-weight: 700;
+    font-size: .88rem;
+    color: $dark;
+    min-width: 24px;
+    text-align: center;
+}
+
+.panier-item-total {
+    font-weight: 700;
+    font-size: .9rem;
+    color: $dark;
+    min-width: 90px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.panier-recap {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    position: sticky;
+    top: 80px;
+
+    h3 {
+        font-size: .95rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        padding-bottom: .65rem;
+        border-bottom: 1px solid $gray2;
+    }
+}
+
+.panier-frais-note {
+    font-size: .72rem;
+    color: #64748B;
+    margin-top: .5rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+// Icône panier dans le header 
+.panier-icon-btn {
+    position: relative;
+    background: rgba(white, .08);
+    border: 1.5px solid rgba(white, .2);
+    border-radius: 8px;
+    padding: .4rem .65rem;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all .15s;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        background: rgba(white, .15);
+        border-color: rgba(white, .4);
+    }
+}
+
+.panier-badge {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    background: $primary;
+    color: $dark;
+    font-size: .6rem;
+    font-weight: 800;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid $dark;
+}
+
+//  Offre dans le panier 
+.offre-in-panier {
+    font-size: .75rem;
+    color: $green;
+    font-weight: 600;
+    margin-bottom: .4rem;
+    background: rgba($green, .08);
+    padding: .25rem .6rem;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.offre-tracable-badge {
+    font-size: .7rem;
+    color: $blue;
+    background: $blue-light;
+    padding: .2rem .55rem;
+    border-radius: 4px;
+    margin-bottom: .5rem;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.panier-item-tracable {
+    font-size: .72rem;
+    color: $blue;
+    background: $blue-light;
+    padding: .25rem .5rem;
+    border-radius: 4px;
+    margin-bottom: .3rem;
+    line-height: 1.4;
+}

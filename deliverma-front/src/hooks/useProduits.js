@@ -8,6 +8,8 @@ export const useProduits = (params = {}) => {
         placeholderData : keepPreviousData
     });
 }
+// pour remplir le selectbox
+//  pour que le vendeur crée son offre
 export const useProduitsPublic = (params = {}) => {
     return useQuery({
         queryKey: ['catalogue', params],

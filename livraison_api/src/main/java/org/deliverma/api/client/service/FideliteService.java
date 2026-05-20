@@ -30,13 +30,9 @@ public class FideliteService {
     private static final BigDecimal MAD_PAR_POINT = BigDecimal.valueOf(0.5);
     private static final BigDecimal TRANCHE_POINTS = BigDecimal.valueOf(10);
 
-    // va etre appélé par le StatutCommandeService quand la commande est livrée
+    // va etre appélé par le StatutService quand la commande est livrée
     @Transactional
     public void crediterPoints(Client client, Commande commande){
-        // cette vérification est lancée par le StatutCommandeService
-        // if(!commande.getStatut().equals(StatutCommande.LIVREE)){
-        //     throw new BusinessException("Commande");
-        // }
         BigDecimal total = getMontantTotal(commande);
         int pointsConvert = total.divide(TRANCHE_POINTS, RoundingMode.FLOOR).intValue();
         

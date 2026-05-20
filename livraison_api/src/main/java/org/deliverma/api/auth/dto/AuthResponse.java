@@ -13,7 +13,9 @@ public record AuthResponse(
     List<String> roles,
     // role actif dans la session courante
     String activeRole,
-    String message
+    String message,
+    // s'il s'agit d'un client
+    int pointsFidelite
 ) {
     
 }

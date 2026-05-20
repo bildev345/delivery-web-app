@@ -1,5 +1,9 @@
 @use 'variables' as *;
 
+a.btn {
+    text-decoration: none;
+    //display: inline-flex;
+}
 .btn {
     display: inline-flex;
     align-items: center;
@@ -46,6 +50,17 @@
         color: $blue;
         &:hover:not(:disabled) {
             background: rgba($blue, .05);
+            opacity: 1;
+        }
+    }
+    &-outline-light {
+        background: transparent;
+        border: 1.5px solid rgba(white, .4);
+        color: white;
+        text-decoration: none;
+        &:hover:not(:disabled){
+            background: rgba(white, .1);
+            border-color: rgba(white, .7);
             opacity: 1;
         }
     }

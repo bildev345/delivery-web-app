@@ -14,7 +14,6 @@ import { ZonesPage } from '../pages/admin/zone/ZonesPage';
 import AdminLayout from '../layouts/admin/AdminLayout';
 import VendeurLayout from '../layouts/vendeur/VendeurLayout';
 import { OffresPages } from '../pages/vendeur/offre/OffresPages';
-import { CommandesPages } from '../pages/vendeur/commande/CommandesPage';
 import { BoutiquePage } from '../pages/vendeur/boutique/BoutiquePage';
 import { ProfilPage } from '../pages/vendeur/profil/ProfilPage';
 import { VendeursPage } from '../pages/admin/vendeurs/VendeursPage';
@@ -22,6 +21,18 @@ import { CategoriesPage } from '../pages/admin/categories/CategoriesPage';
 import { ProduitsPage } from '../pages/admin/produits/ProduitsPage';
 import { UsersPage } from '../pages/admin/utilisateurs/UsersPage';
 import { LivreursPages } from '../pages/admin/livreurs/LivreursPages';
+import { VendeurCommandesPage } from '../pages/vendeur/commande/VendeurCommandesPage';
+import { AdminCommandesPage } from '../pages/admin/commandes/AdminCommandesPage';
+import ClientLayout from '../layouts/client/ClientLayout';
+import AdressesPage from '../pages/client/adresses/AdressesPage';
+import { ClientCommandesPage } from '../pages/client/commandes/ClientCommandesPage';
+import PublicLayout from '../layouts/PublicLayout';
+import CataloguePage from '../pages/catalogue/CataloguePage';
+import ProduitDetailPage from '../pages/catalogue/ProduitDetailPage';
+import SuiviPage from '../pages/catalogue/SuiviPage';
+import CheckoutPage from '../pages/client/commandes/CheckoutPage';
+import PanierPage from '../pages/client/panier/PanierPage';
+import ClientCommandeDetail from '../pages/client/commandes/ClientCommandeDetail';
 
 function RootRedirect() {
     const { user, loading } = useAuth();
@@ -42,7 +53,7 @@ export default function AppRouter() {
       <BrowserRouter>
         <Routes>
           {/* Racine → redirige selon rôle */}
-          <Route path="/" element={<RootRedirect />} />
+          {/*<Route path="/" element={<RootRedirect />} />*/}
 
           {/* Auth — publiques */}
           <Route path="/login" element={<LoginPage />} />
@@ -53,12 +64,18 @@ export default function AppRouter() {
             path="/client"
             element={
               <ProtectedRoute roles={["CLIENT"]}>
-                <Routes>
-                  <Route path="dashboard" element={<ClientDashboard />} />
-                </Routes>
+                  <ClientLayout/>
               </ProtectedRoute>
             }
-          />
+          >
+              <Route path='dashboard' element={<ClientDashboard/>} />
+              <Route path='adresses' element={<AdressesPage/>} />
+              <Route path='commandes' element={<ClientCommandesPage/>} />
+              <Route path='commandes/:id' element={<ClientCommandeDetail/>} />
+              <Route path='panier' element={<PanierPage/>}/>
+              <Route path='checkout' element={<CheckoutPage/>}/>
+              
+          </Route>
 
           {/* Vendeur */}
           <Route
@@ -71,7 +88,7 @@ export default function AppRouter() {
           >
               <Route path="dashboard" element={<VendeurDashboard />} />
               <Route path="offres" element={<OffresPages />} />
-              <Route path="commandes" element={<CommandesPages />} />
+              <Route path="commandes" element={<VendeurCommandesPage />} />
               <Route path="boutique" element={<BoutiquePage />} />
               <Route path="profil" element={<ProfilPage />} />
               
@@ -103,9 +120,16 @@ export default function AppRouter() {
             <Route path="categories" element={<CategoriesPage/>}/>
             <Route path="produits" element={<ProduitsPage/>}/>
             <Route path="livreurs" element={<LivreursPages/>}/>
-            <Route path="commandes" element={<CommandesPages/>}/>
+            <Route path="commandes" element={<AdminCommandesPage/>}/>
             <Route path="utilisateurs" element={<UsersPage/>}/>
 
+
+          </Route>
+          <Route element={<PublicLayout/>}>
+              <Route path='/' element={<CataloguePage/>}/>
+              <Route path='/catalogue' element={<CataloguePage/>}/>
+              <Route path='/catalogue/:id' element={<ProduitDetailPage/>}/>
+              <Route path='/suivi' element={<SuiviPage/>}/>
 
           </Route>
 

@@ -26,6 +26,7 @@ import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -45,6 +46,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Commande {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.AUTO)
@@ -57,8 +59,15 @@ public class Commande {
     @Column(nullable = false)
     private StatutCommande statut;
 
-    @Column(nullable = false, insertable = true, updatable = false)
-    private BigDecimal fraisLivraison;
+    @Column(
+        nullable = false,
+        insertable = true,
+        updatable = false,
+        precision = 10,
+        scale = 2
+    )
+    @Builder.Default
+    private BigDecimal fraisLivraison = BigDecimal.ZERO;
 
 
     @Column(nullable = false)
@@ -89,10 +98,16 @@ public class Commande {
     private Avis avis;
 
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<LigneCommande> lignes = new ArrayList<>();
 
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("dateChangement ASC")
+    @Builder.Default
     private List<SuiviStatut> historiques = new ArrayList<>();
-
+    
+    // le réduction points si utilisé dans la commande, sinon 0
+    @Column(precision = 10, scale = 2)
+    @Builder.Default
+    private BigDecimal reductionPoints = BigDecimal.ZERO;
 }

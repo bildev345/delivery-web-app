@@ -1,7 +1,6 @@
 package org.deliverma.api.client.repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.deliverma.api.shared.entities.AdresseClient;

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import org.eclipse.angus.mail.handlers.message_rfc822;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -50,7 +51,8 @@ public class SecurityConfig {
             "/",
             "/index.html",
             "/api/v1/catalogue/**",
-            "/api/v1/auth/switch-role"
+            "/api/v1/commandes/suivi/**",
+            "/api/v1/categories"
     };
 
    @Bean

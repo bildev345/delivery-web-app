@@ -9,9 +9,11 @@
 @use 'layout';
 @use 'modal';
 @use 'pages-admin';
+@use 'pages-client';
 @use 'pages-vendeur';
 @use 'pages-auth';
 @use 'table';
+@use 'catalogue';
 
 
 // Input désactivé — apparence lecture seule

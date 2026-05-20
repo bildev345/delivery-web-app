@@ -1,6 +1,7 @@
 import { api } from "./fetchInstance";
 
 export const produitApi = {
+    // admin role
     getAll : (params = {}) => {
         const q = new URLSearchParams();
         if(params.search){
@@ -23,18 +24,7 @@ export const produitApi = {
     update : (id, data) => api.put(`/admin/produits/${id}`, data),
     delete : (id) => api.delete(`/admin/produits/${id}`),
 
-    getCatalogue: (params = {}) => {
-        const q = new URLSearchParams();
-        if(params.search){
-            q.set('search', params.search);
-        }
-        if(params.categorieId){
-            q.set('categorieId', params.categorieId);
-        }
-        return api.get(`/catalogue/produits?${q.toString()}`);
-        
-    },
+    
     getAllPublic : () => api.get(`/catalogue/all`)
-
 
 }

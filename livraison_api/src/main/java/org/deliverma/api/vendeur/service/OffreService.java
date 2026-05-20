@@ -1,21 +1,23 @@
 package org.deliverma.api.vendeur.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
 import org.deliverma.api.admin.repository.ProduitRepository;
+import org.deliverma.api.shared.dto.OffrePublicResponse;
 import org.deliverma.api.shared.entities.Offre;
 import org.deliverma.api.shared.entities.Produit;
 import org.deliverma.api.shared.entities.Vendeur;
 import org.deliverma.api.shared.exception.BusinessException;
 import org.deliverma.api.shared.exception.DuplicateResourceException;
 import org.deliverma.api.shared.exception.ResourceNotFoundException;
+import org.deliverma.api.shared.repositories.LigneCommandeRepository;
 import org.deliverma.api.shared.repositories.VendeurRepository;
 import org.deliverma.api.utils.SecurityUtils;
 import org.deliverma.api.vendeur.dto.offre.OffreRequest;
 import org.deliverma.api.vendeur.dto.offre.OffreResponse;
 import org.deliverma.api.vendeur.mapper.OffreMapper;
-import org.deliverma.api.vendeur.repository.LigneCommandeRepository;
 import org.deliverma.api.vendeur.repository.OffreRepository;
 import org.deliverma.api.vendeur.repository.UniteProduitRepository;
 import org.springframework.security.authorization.AuthorizationDeniedException;
@@ -137,5 +139,35 @@ public class OffreService {
 
     private Offre findOffreOrThrow(UUID id){
         return offreRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Offre", id));
+    }
+
+    public List<OffrePublicResponse> getOffresPublicByProduit(UUID produitId) {
+        // vérifier l'existence de produit
+        if(!produitRepository.existsById(produitId)){
+            throw new ResourceNotFoundException("Produit", produitId);
+        }
+
+        return offreRepository.findActivesByProduitId(produitId)
+        .stream()
+        .map(this::toPublicResponse)
+        .toList();
+    }
+    private OffrePublicResponse toPublicResponse(Offre offre){
+        BigDecimal prixTtc = offre.getPrixHt()
+        .multiply(BigDecimal.ONE.add(offre.getTva()
+        .divide(BigDecimal.valueOf(100))));
+
+        return OffrePublicResponse.builder()
+        .offreId(offre.getId())
+        .prixHt(offre.getPrixHt())
+        .tva(offre.getTva())
+        .prixTtc(prixTtc)
+        .stock(offre.getStockDisponible())
+        .nomBoutique(offre.getVendeur().getNomBoutique())
+        .logoBoutique(offre.getVendeur().getLogo())
+        .villeBoutique(offre.getVendeur().getVille())
+        .tracable(offre.isTracable())
+        .build();
+
     }
 }

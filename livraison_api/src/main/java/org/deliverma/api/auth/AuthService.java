@@ -111,6 +111,7 @@ public class AuthService {
         String activeRole = request.activeRole() != null
                             ? request.activeRole()
                             : roles.get(0);
+        
         // générer le token
         String jwt = jwtService.generateToken(user, activeRole);
 
@@ -133,6 +134,11 @@ public class AuthService {
                 .email(user.getEmail())
                 .roles(roles)
                 .activeRole(activeRole)
+                .pointsFidelite(
+                    roles.contains(Role.CLIENT.name()) 
+                    ? clientRepository.findByUserId(user.getId()).get().getPointsFidelite()
+                    : 0
+                )
                 .message("Authentication successful")
                 .build();
     }

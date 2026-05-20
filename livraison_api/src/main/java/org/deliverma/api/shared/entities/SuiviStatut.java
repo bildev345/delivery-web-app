@@ -20,6 +20,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -31,6 +32,7 @@ import lombok.NoArgsConstructor;
     name = "suivi_status",
     indexes = @Index(name = "idx_suivi_commande", columnList = "commande_id")
 )
+@Builder
 public class SuiviStatut {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.AUTO)

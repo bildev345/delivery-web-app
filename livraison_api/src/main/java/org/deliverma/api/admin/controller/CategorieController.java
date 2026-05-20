@@ -27,30 +27,32 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/api/v1/admin/categories")
-@PreAuthorize("hasRole('ADMIN')")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Tag(name = "Gestion des catégories")
 public class CategorieController {
     private final CategorieService categorieService;
 
-    @GetMapping
+    @GetMapping("categories")
     public ResponseEntity<List<CategorieResponse>> getAll() {
         return ResponseEntity.ok(categorieService.selectAll());
     }
 
-    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("admin/categories")
     public ResponseEntity<CategorieResponse> creerCategorie(@Valid @RequestBody CategorieRequest request) {        
         return ResponseEntity.status(HttpStatus.CREATED)
         .body(categorieService.createCategorie(request));
     }
-
-    @PutMapping("{id}")
+ 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("admin/categories/{id}")
     public ResponseEntity<CategorieResponse> editCategorie(@PathVariable UUID id, @Valid @RequestBody CategorieRequest request) {
         return ResponseEntity.ok(categorieService.updateCategorie(id, request));
     }
 
-    @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("admin/categories/{id}")
     public ResponseEntity<Void> deleteCategorie(@PathVariable UUID id){
         categorieService.deleteCategorie(id);
         return ResponseEntity.noContent().build();

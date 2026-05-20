@@ -29,7 +29,6 @@ public interface ProduitRepository extends JpaRepository<Produit, UUID>{
         )
         and (:categorieId is null or p.categorie.id = :categorieId)            
 
-
             """)
     List<Produit> findCatalogueProduitHavingOffreAndActive(
         @Param("search") String search,

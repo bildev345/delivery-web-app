@@ -25,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/admin/zones")
-@PreAuthorize("hasRole('ADMIN')")
 @Tag(name = "Zones de livraison", description = "Endpoints restreints au rôle ADMIN")
 public class ZoneController {
     private final ZoneService zoneService; 
@@ -36,12 +35,14 @@ public class ZoneController {
     }
     
     // récuperer une zone par son Id
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("{id}")
     public ResponseEntity<ZoneResponse> getZone(@PathVariable UUID id){
         return ResponseEntity.ok(zoneService.getById(id));
     }
 
     // ajouter une zone
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ZoneResponse> ajouterZone(@Valid @RequestBody ZoneRequest zoneRequest) {        
         return ResponseEntity
@@ -50,18 +51,21 @@ public class ZoneController {
     }
     
     // modifier une zone
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("{id}")
     public ResponseEntity<ZoneResponse> modifierZone(@PathVariable UUID id, @Valid @RequestBody ZoneRequest zoneRequest){
         return ResponseEntity.ok(zoneService.updateZone(id, zoneRequest));
     }
     
     // activer ou désactiver une zone
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("{id}/toggle")
     public ResponseEntity<ZoneResponse> toggleZone(@PathVariable UUID id){
         return ResponseEntity.ok(zoneService.toggleZoneActivity(id));
     }
 
     // désactiver une zone au lieu de la supprimer
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("{id}/deactivate")
     public ResponseEntity<ZoneResponse> desactiverZone(@PathVariable UUID id){
         return ResponseEntity.ok(zoneService.desactiverZone(id));

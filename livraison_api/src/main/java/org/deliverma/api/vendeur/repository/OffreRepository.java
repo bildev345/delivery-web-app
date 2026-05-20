@@ -25,4 +25,7 @@ public interface OffreRepository extends JpaRepository<Offre, UUID> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select o from Offre o where o.id = :id")
     Optional<Offre> findByIdWithLock(@Param("id") UUID id);
+
+    List<Offre> findActivesByProduitId(@Param("produitId") UUID produitId);
+    
 }
