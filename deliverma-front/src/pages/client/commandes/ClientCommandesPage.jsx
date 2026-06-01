@@ -43,14 +43,16 @@ export const ClientCommandesPage = () => {
 
             {error && <div className="alert alert-error">{error}</div>}
 
-            {commandes.length === 0 ? (
+            <>
                 <div className="empty-state">
-                    <p>Vous n'avez pas encore de commandes</p>
+                    {commandes.length == 0 && (
+                        <p>Vous n'avez pas encore de commandes</p>
+                    )}
                     <Link to="/catalogue" className="btn btn-orange">
                         Parcourir le catalogue
                     </Link>
                 </div>
-            ) : (
+            
                 <div className="commandes-list">
                     {commandes.map(c => (
                         <div key={c.commandeId} className="commande-card">
@@ -100,14 +102,14 @@ export const ClientCommandesPage = () => {
                                     <Link
                                         to={`/client/commandes/${c.commandeId}`}
                                         className="btn btn-outline btn-sm"
-                                    >
+                                        >
                                         Détail
                                     </Link>
                                     {c.statut === 'EN_ATTENTE' && (
                                         <button
-                                            className="btn btn-danger btn-sm"
-                                            onClick={() => handleAnnuler(c.commandeId)}
-                                            disabled={annulerMutation.isPending}
+                                        className="btn btn-danger btn-sm"
+                                        onClick={() => handleAnnuler(c.commandeId)}
+                                        disabled={annulerMutation.isPending}
                                         >
                                             Annuler
                                         </button>
@@ -117,7 +119,8 @@ export const ClientCommandesPage = () => {
                         </div>
                     ))}
                 </div>
-            )}
+            </>
+            
         </div>
     );
 }

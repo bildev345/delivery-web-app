@@ -52,7 +52,9 @@ public class SecurityConfig {
             "/index.html",
             "/api/v1/catalogue/**",
             "/api/v1/commandes/suivi/**",
-            "/api/v1/categories"
+            "/api/v1/categories",
+            "/api/v1/auth/set-password",
+            "/api/v1/auth/valider-token"
     };
 
    @Bean

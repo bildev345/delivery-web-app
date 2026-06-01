@@ -5,6 +5,10 @@ import java.util.Map;
 import org.deliverma.api.auth.dto.AuthResponse;
 import org.deliverma.api.auth.dto.LoginRequest;
 import org.deliverma.api.auth.dto.RegisterRequest;
+import org.deliverma.api.auth.dto.SettingPasswordRequest;
+import org.deliverma.api.auth.dto.TokenValidationResponse;
+import org.deliverma.api.auth.service.PasswordResetService;
+import org.deliverma.api.shared.entities.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +22,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -26,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
     private final AuthService authService;
+    private final PasswordResetService passwordResetService;
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody RegisterRequest request) {
@@ -58,7 +65,28 @@ public class AuthController {
         @AuthenticationPrincipal UserDetails userDetails,
         HttpServletResponse response) {
         String targetRole = body.get("activeRole");
-        return ResponseEntity.ok(authService.switchRole(userDetails.getUsername(), targetRole, response)
-    );
-}
+        return ResponseEntity.ok(authService.switchRole(userDetails.getUsername(), targetRole, response));
+    }
+
+    @PostMapping("/set-password")
+    public ResponseEntity<Void> definirPassword(
+        @RequestBody SettingPasswordRequest request
+    ){
+        passwordResetService.setterPassword(request.token(), request.password());
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/valider-token")
+    public ResponseEntity<TokenValidationResponse> validerToken(@RequestParam String token) {
+        User user = passwordResetService.validerToken(token);
+        return ResponseEntity.ok(
+            new TokenValidationResponse(
+                user.getNom(),
+                user.getPrenom(),
+                user.getEmail()
+            )
+        );
+    }
+    
+
 }

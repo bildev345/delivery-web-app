@@ -6,10 +6,11 @@ export const statutApi = {
         api.get(`/vendeur/commandes?page=${page}&size=${size}`),
     
     changerStatutVendeur: (id, data) => 
-        api.get(`/vendeur/commandes/${id}/statut`, data),
+        api.patch(`/vendeur/commandes/${id}/statut`, data),
 
     // livreur
     getTournee: () => api.get('/livreur/commandes'),
+    
     changerStatutLivreur: (id, data) => 
         api.patch(`/livreur/commandes/${id}/statut`, data)
 };

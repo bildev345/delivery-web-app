@@ -58,3 +58,14 @@ export function useGenererUnites() {
         }
     });
 }
+
+export function useRemettreEnVente() {
+    const qc = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => uniteApi.remettreEnVente(id),
+        onSuccess: (_, id) => {
+            qc.invalidateQueries({ queryKey: ['unites'] });
+            qc.invalidateQueries({ queryKey: ['offres'] });
+        },
+    });
+}

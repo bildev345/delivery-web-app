@@ -55,6 +55,11 @@ public class UniteProduitController {
             uniteService.updateStatut(id, statut, notes)
         );
     }
-
+    
+    @PatchMapping("/{id}/remettre-en-vente")
+    public ResponseEntity<UniteProduitResponse> remettreEnVente(
+            @PathVariable UUID id) {
+        return ResponseEntity.ok(uniteService.remettreEnVente(id));
+    }
     
 }

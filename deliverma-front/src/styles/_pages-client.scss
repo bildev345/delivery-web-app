@@ -490,3 +490,66 @@
     margin-bottom: .3rem;
     line-height: 1.4;
 }
+
+// Détail commande 
+.commande-detail-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.commande-detail-header {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.commande-detail-titre {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    flex-wrap: wrap;
+}
+
+.commande-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.commande-detail-ligne {
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    padding: .75rem 0;
+    border-bottom: 1px solid $gray2;
+
+    &:last-child { border-bottom: none; }
+}
+
+.commande-detail-ligne-image {
+    width: 52px;
+    height: 52px;
+    border-radius: 8px;
+    background: $gray;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    overflow: hidden;
+    border: 1px solid $gray2;
+
+    img { width: 100%; height: 100%; object-fit: cover; }
+}
+
+.commande-detail-ligne-info {
+    flex: 1;
+    min-width: 0;
+}

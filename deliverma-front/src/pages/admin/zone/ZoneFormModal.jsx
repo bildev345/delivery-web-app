@@ -5,7 +5,7 @@ const EMPTY_FORM = {
     nom:             '',
     villesCouvertes: '',
     fraisLivraison:  '',
-    delaisJours:     '',
+    delaiJours:     '',
 };
 
 export const ZoneFormModal = ({ zone, onClose }) => {
@@ -17,7 +17,7 @@ export const ZoneFormModal = ({ zone, onClose }) => {
                 nom: zone.nom,
                 villesCouvertes: zone.villesCouvertes,
                 fraisLivraison: zone.fraisLivraison,
-                delaisJours: zone.delaisJours,
+                delaiJours: zone.delaiJours,
               }
             : EMPTY_FORM
     );
@@ -41,8 +41,8 @@ export const ZoneFormModal = ({ zone, onClose }) => {
             e.villesCouvertes = 'Les villes sont requises';
         if (!form.fraisLivraison || Number(form.fraisLivraison) <= 0)
             e.fraisLivraison = 'Doit être supérieur à 0';
-        if (!form.delaisJours || Number(form.delaisJours) < 1)
-            e.delaisJours = 'Doit être au moins 1 jour';
+        if (!form.delaiJours || Number(form.delaiJours) < 1)
+            e.delaiJours = 'Doit être au moins 1 jour';
         return e;
     };
 
@@ -57,7 +57,7 @@ export const ZoneFormModal = ({ zone, onClose }) => {
         const payload = {
             ...form,
             fraisLivraison: Number(form.fraisLivraison),
-            delaisJours:    Number(form.delaisJours),
+            delaiJours:    Number(form.delaiJours),
         };
 
         try {
@@ -161,23 +161,23 @@ export const ZoneFormModal = ({ zone, onClose }) => {
                                 )}
                             </div>
                             <div className="form-group">
-                                <label htmlFor="delaisJours">
+                                <label htmlFor="delaiJours">
                                     Délai (jours) *
                                 </label>
                                 <input
-                                    id="delaisJours"
-                                    name="delaisJours"
+                                    id="delaiJours"
+                                    name="delaiJours"
                                     type="number"
                                     min="1"
-                                    value={form.delaisJours}
+                                    value={form.delaiJours}
                                     onChange={handleChange}
                                     placeholder="1"
-                                    className={errors.delaisJours
+                                    className={errors.delaiJours
                                         ? 'input-error' : ''}
                                 />
-                                {errors.delaisJours && (
+                                {errors.delaiJours && (
                                     <span className="field-error">
-                                        {errors.delaisJours}
+                                        {errors.delaiJours}
                                     </span>
                                 )}
                             </div>

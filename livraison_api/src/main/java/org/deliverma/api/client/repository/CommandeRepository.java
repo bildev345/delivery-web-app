@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.deliverma.api.shared.entities.AdresseClient;
 import org.deliverma.api.shared.entities.Commande;
+import org.deliverma.api.shared.enums.StatutCommande;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,4 +37,11 @@ public interface CommandeRepository extends JpaRepository<Commande, UUID>{
 
    
     List<Commande> findAllByLivreurId(UUID livreurId);
+
+    @Query("""
+        SELECT c FROM Commande c
+        WHERE (:statut IS NULL OR c.statut = :statut)
+        ORDER BY c.dateCreation DESC      
+    """)
+    Page<Commande> findAllWithFilters(StatutCommande statut, Pageable pageable);
 }

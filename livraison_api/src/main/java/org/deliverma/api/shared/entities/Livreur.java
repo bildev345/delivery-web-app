@@ -16,6 +16,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "livreurs")
+@Builder
 public class Livreur {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.AUTO)
@@ -36,6 +38,7 @@ public class Livreur {
     private String numeroPermis;
     
     @Column(nullable = false)
+    @Builder.Default
     private boolean disponible = true;
 
     @OneToOne
@@ -43,6 +46,7 @@ public class Livreur {
     private User user;
 
     @OneToMany(mappedBy = "livreur", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<LivreurZone> livreurZones = new ArrayList<>();
 
     @Transient

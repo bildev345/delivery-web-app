@@ -1,12 +1,13 @@
 package org.deliverma.api.auth.dto;
 
 import java.util.List;
+import java.util.UUID;
 
 import lombok.Builder;
 
 @Builder
 public record AuthResponse(
-    String userId,
+    UUID userId,
     String nom,
     String prenom,
     String email,

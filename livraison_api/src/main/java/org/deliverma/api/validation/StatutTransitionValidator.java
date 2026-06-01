@@ -13,13 +13,11 @@ import static org.deliverma.api.shared.enums.StatutCommande.*;
 public class StatutTransitionValidator {
     private static final Map<StatutCommande, Map<Role, Set<StatutCommande>>> TRANSITIONS = Map.of(
         EN_ATTENTE, Map.of(
-            Role.VENDEUR, Set.of(CONFIRMEE, ANNULEE),
-            Role.ADMIN, Set.of(CONFIRMEE, ANNULEE),
-            Role.CLIENT, Set.of(ANNULEE)
-
+            Role.ADMIN, Set.of(CONFIRMEE, ANNULEE)
         ),
         CONFIRMEE, Map.of(
-            Role.VENDEUR, Set.of(EN_PREPARATION),
+            Role.CLIENT, Set.of(ANNULEE),
+            Role.VENDEUR, Set.of(EN_PREPARATION, ANNULEE),
             Role.ADMIN, Set.of(EN_PREPARATION, ANNULEE)
         ),
         EN_PREPARATION, Map.of(

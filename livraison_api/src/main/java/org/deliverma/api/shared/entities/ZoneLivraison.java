@@ -40,7 +40,7 @@ public class ZoneLivraison {
     private BigDecimal fraisLivraison;
 
     @Column(nullable = false)
-    private int delaisJours;
+    private int delaiJours;
     
     @Column(nullable = false)
     private boolean active;

@@ -1,9 +1,9 @@
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import RoleSwitcher from '../components/shared/RoleSwitcher';
-import { usePanier } from '../hooks/usePanier';
+import { useAuth } from '../../hooks/useAuth';
+import {usePanier} from '../../hooks/usePanier';
+import RoleSwitcher from '../../components/shared/RoleSwitcher';
 
-export default function PublicLayout() {
+export default function PublicHeader(){
     const { user, logout, isAuthenticated } = useAuth();
     const navigate = useNavigate();
 
@@ -14,19 +14,17 @@ export default function PublicLayout() {
 
     const getDashboardLink = () => {
         const routes = {
-            ADMIN:   '/admin/dashboard',
+            ADMIN: '/admin/dashboard',
             VENDEUR: '/vendeur/dashboard',
-            CLIENT:  '/client/commandes',
+            CLIENT: '/client/commandes',
             LIVREUR: '/livreur/tournee',
         };
         return routes[user?.activeRole] || '/';
     };
 
     const {nombreArticles} = usePanier();
-
     return (
-        <div className="public-layout">
-            <header className="public-header">
+        <header className="public-header">
                 <NavLink to="/" className="public-logo">
                     🚚 Deliver<span>Ma</span>
                 </NavLink>
@@ -97,14 +95,5 @@ export default function PublicLayout() {
                     )}
                 </div>
             </header>
-
-            <main className="public-content">
-                <Outlet />
-            </main>
-
-            <footer className="public-footer">
-                <span>© 2025 DeliverMa — Livraison rapide au Maroc</span>
-            </footer>
-        </div>
-    );
+    )
 }

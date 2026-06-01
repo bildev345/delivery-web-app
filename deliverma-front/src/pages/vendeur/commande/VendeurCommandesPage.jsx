@@ -16,8 +16,7 @@ const STATUT_CONFIG = {
 
 // Transitions autorisées pour le vendeur
 const TRANSITIONS_VENDEUR = {
-    EN_ATTENTE: ['CONFIRMEE', 'ANNULEE'],
-    CONFIRMEE: ['EN_PREPARATION'],
+    CONFIRMEE: ['EN_PREPARATION', 'ANNULEE'],
     EN_PREPARATION: ['EXPEDIEE'],
 };
 

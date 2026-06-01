@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useUnitesByOffre, useGenererUnites } from '../../../hooks/useOffres';
+import { useUnitesByOffre, useGenererUnites, useRemettreEnVente } from '../../../hooks/useOffres';
 
 const STATUT_LABELS = {
     DISPONIBLE: { label: 'Disponible',  cls: 'badge-active' },
@@ -8,10 +8,13 @@ const STATUT_LABELS = {
     EN_SAV: { label: 'En SAV', cls: 'badge-blue' },
     DEFECTUEUSE: { label: 'Défectueuse', cls: 'badge-inactive' },
 };
+// Statuts pour lesquels on peut remettre en vente
+const PEUT_REMETTRE_EN_VENTE = ['RETOURNEE', 'EN_SAV'];
 
 export default function UnitesModal({ offre, onClose }) {
     const { data: unites = [], isLoading } = useUnitesByOffre(offre.offreId);
     const genererMutation = useGenererUnites();
+    const remettreEnVenteMutation = useRemettreEnVente();
 
     const [genForm, setGenForm] = useState({
         quantite:     1,
@@ -36,6 +39,7 @@ export default function UnitesModal({ offre, onClose }) {
 
     const disponibles = unites.filter(u => u.statut === 'DISPONIBLE').length;
     const vendues = unites.filter(u => u.statut === 'VENDUE').length;
+    const retournees = unites.filter(u => PEUT_REMETTRE_EN_VENTE.includes(u.statut)).length;
 
     return (
         <div className="modal-overlay" onClick={onClose}>
@@ -47,9 +51,18 @@ export default function UnitesModal({ offre, onClose }) {
                     <div>
                         <h2>Unités — {offre.produit?.designation}</h2>
                         <div style={{ fontSize: '.75rem', color: '#64748B',
-                            marginTop: '.2rem' }}>
-                            {disponibles} disponible{disponibles !== 1 ? 's' : ''}
-                            {vendues > 0 && ` · ${vendues} vendue${vendues !== 1 ? 's' : ''}`}
+                            marginTop: '.2rem', display: 'flex', gap: '.75rem' }}>
+                            <span style={{ color: '#10B981' }}>
+                                ✓ {disponibles} disponible{disponibles !== 1 ? 's' : ''}
+                            </span>
+                            {vendues > 0 && (
+                                <span>🛒 {vendues} vendue{vendues !== 1 ? 's' : ''}</span>
+                            )}
+                            {retournees > 0 && (
+                                <span style={{ color: '#F59E0B' }}>
+                                    ↩ {retournees} à remettre en vente
+                                </span>
+                            )}
                         </div>
                     </div>
                     <button className="modal-close" onClick={onClose}>✕</button>
@@ -119,6 +132,7 @@ export default function UnitesModal({ offre, onClose }) {
                                         <th>Statut</th>
                                         <th>Garantie</th>
                                         <th>Notes</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -146,6 +160,26 @@ export default function UnitesModal({ offre, onClose }) {
                                             <td className="td-muted td-truncate">
                                                 {u.notes || '—'}
                                             </td>
+                                            <td>
+                                                {/* Bouton remettre en vente */}
+                                                {PEUT_REMETTRE_EN_VENTE
+                                                    .includes(u.statut) && (
+                                                    <button
+                                                        className="btn btn-success btn-xs"
+                                                        onClick={() =>
+                                                            remettreEnVenteMutation
+                                                                .mutate(u.id)}
+                                                        disabled={
+                                                            remettreEnVenteMutation
+                                                                .isPending
+                                                        }
+                                                        title="Remettre en vente"
+                                                    >
+                                                        ↩ Remettre en vente
+                                                    </button>
+                                                )}
+                                            </td>
+                               
                                         </tr>
                                     ))}
                                 </tbody>

@@ -79,14 +79,14 @@ public class StockService {
                     + "par ligne. Ajoutez plusieurs lignes pour plusieurs unités."
                 );
             }
-            // prendre la premiere unité disponible
-            UniteProduit unite = uniteProduitRepository.findFirstByOffreIdAndStatut(offre.getId(), UniteStatut.DISPONIBLE)
-                                .orElseThrow(() -> new BusinessException(
-                                    "Stock épuisé pour ce produit"
-                                ));
-            unite.setStatut(UniteStatut.VENDUE);
-            unite.setLigneCommande(ligneCommande);
-            uniteProduitRepository.save(unite);                    
+            // // prendre la premiere unité disponible
+            // UniteProduit unite = uniteProduitRepository.findFirstByOffreIdAndStatut(offre.getId(), UniteStatut.DISPONIBLE)
+            //                     .orElseThrow(() -> new BusinessException(
+            //                         "Stock épuisé pour ce produit"
+            //                     ));
+            // unite.setStatut(UniteStatut.VENDUE);
+            // unite.setLigneCommande(ligneCommande);
+            // uniteProduitRepository.save(unite);                    
             
             // synchroniser le stock en base
             synchroniserStock(offre);
@@ -109,7 +109,7 @@ public class StockService {
             }
             unite.setStatut(UniteStatut.RETOURNEE);
             unite.setNotes("Retour - annulation commande " + ligneCommande.getCommande().getNumero());
-            unite.setLigneCommande(null);
+            //unite.setLigneCommande(null);
             uniteProduitRepository.save(unite);
             
             synchroniserStock(offre);
@@ -120,23 +120,6 @@ public class StockService {
         }  
         offreRepository.save(offre);
     } 
-
-    // remettre en vente manuellement
-    @Transactional
-    public void remettreEnVente(UUID uniteId){
-        UniteProduit unite = uniteProduitRepository.findById(uniteId)
-        .orElseThrow(() -> new ResourceNotFoundException("Unité", uniteId));
-        
-        if(unite.getStatut() != UniteStatut.RETOURNEE && unite.getStatut() != UniteStatut.EN_SAV){
-            throw new BusinessException(
-                "Seules les unités RETOURNÉE ou EN_SAV peuvent " + "etre remises en vente"
-            );
-        }
-        unite.setStatut(UniteStatut.DISPONIBLE);
-        unite.setNotes(unite.getNotes() + " | Remis en vente le " + LocalDate.now());
-        
-        synchroniserStock(unite.getOffre());
-    }
 
     private Offre findWithLock(UUID offreId){
         return offreRepository.findByIdWithLock(offreId)

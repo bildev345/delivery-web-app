@@ -118,4 +118,27 @@
     flex-shrink: 0;
 }
 
+.zone-selection-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .55rem .75rem;
+    border: 1.5px solid $gray2;
+    border-radius: 8px;
+    background: white;
+    gap: .75rem;
+    transition: border-color .15s;
+
+    &:hover { border-color: $primary; }
+}
+
+.zone-selection-label {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    cursor: pointer;
+    flex: 1;
+    font-size: .85rem;
+}
+
 

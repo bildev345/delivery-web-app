@@ -44,7 +44,7 @@ public class CatalogueController {
     }
 
     @GetMapping("{id}/offres")
-    public ResponseEntity<List<OffrePublicResponse>> getOffreParProduit(@PathVariable UUID id) {
+    public ResponseEntity<List<OffrePublicResponse>> getOffresParProduit(@PathVariable UUID id) {
         return ResponseEntity.ok(
             offreService.getOffresPublicByProduit(id)
         );

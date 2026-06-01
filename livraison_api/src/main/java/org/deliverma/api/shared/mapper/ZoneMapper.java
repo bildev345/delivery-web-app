@@ -11,7 +11,7 @@ public class ZoneMapper {
         return ZoneResponse.builder()
         .nom(zone.getNom())
         .id(zone.getId())
-        .delaisJours(zone.getDelaisJours())
+        .delaiJours(zone.getDelaiJours())
         .fraisLivraison(zone.getFraisLivraison())
         .villesCouvertes(zone.getVillesCouvertes())
         .active(zone.isActive())
@@ -23,7 +23,7 @@ public class ZoneMapper {
         .nom(request.nom())
         .villesCouvertes(request.villesCouvertes())
         .fraisLivraison(request.fraisLivraison())
-        .delaisJours(request.delaisJours())
+        .delaiJours(request.delaiJours())
         .active(true)
         .build();
     }

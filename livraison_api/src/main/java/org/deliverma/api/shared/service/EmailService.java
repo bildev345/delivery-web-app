@@ -7,11 +7,14 @@ import java.math.BigDecimal;
 
 import org.deliverma.api.shared.entities.Commande;
 import org.deliverma.api.shared.entities.LigneCommande;
+import org.deliverma.api.shared.entities.Livreur;
+import org.deliverma.api.shared.entities.User;
 import org.deliverma.api.shared.enums.StatutCommande;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jakarta.mail.internet.MimeMessage;
@@ -24,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class EmailService {
 
     private final JavaMailSender mailSender;
+    private final PasswordEncoder passwordEncoder;
 
     @Value("${app.mail.from}")
     private String from;
@@ -77,6 +81,9 @@ public class EmailService {
     private String findClientEmail(Commande commande) {
         return commande.getClient().getUser().getEmail();
     }
+    // private String findLivreurEmail(Livreur livreur) {
+    //     return livreur.getUser().getEmail();
+    // }
 
     private void envoyer(String to, String sujet, String corps) {
         try {
@@ -158,91 +165,97 @@ public class EmailService {
         );
     }
 
-    private String wrapper(String titre, Commande commande,
-                            String contenu) {
-        return """
-            <div style="font-family:sans-serif;max-width:600px;
-                        margin:0 auto;color:#0F172A">
-              <div style="background:#0F172A;padding:1rem 1.5rem;
-                          border-radius:8px 8px 0 0">
-                <h1 style="color:#60c3e2;margin:0;font-size:1.2rem">
-                  DeliverMa
-                </h1>
-              </div>
-              <div style="border:1px solid #E2E8F0;
-                          border-top:none;padding:1.5rem;
-                          border-radius:0 0 8px 8px">
-                <h2 style="color:#0F172A">%s</h2>
-                <p>N° commande : <strong>%s</strong></p>
-                %s
-              </div>
-              <p style="text-align:center;color:#94A3B8;
-                        font-size:.75rem;margin-top:1rem">
-                DeliverMa — Livraison rapide au Maroc
-              </p>
-            </div>
-            """.formatted(titre, commande.getNumero(), contenu);
+    private String wrapper(String titre, Commande commande, String contenu) {
+        return "<div style=\"font-family:sans-serif;max-width:600px;margin:0 auto;color:#0F172A\">"
+                + "<div style=\"background:#0F172A;padding:1rem 1.5rem;border-radius:8px 8px 0 0\">"
+                + "<h1 style=\"color:#60c3e2;margin:0;font-size:1.2rem\">DeliverMa</h1>"
+                + "</div>"
+                + "<div style=\"border:1px solid #E2E8F0;border-top:none;padding:1.5rem;border-radius:0 0 8px 8px\">"
+                + "<h2 style=\"color:#0F172A\">" + titre + "</h2>"
+                + "<p>N° commande : <strong>" + commande.getNumero() + "</strong></p>"
+                + contenu
+                + "</div>"
+                + "<p style=\"text-align:center;color:#94A3B8;font-size:.75rem;margin-top:1rem\">"
+                + "DeliverMa — Livraison rapide au Maroc</p>"
+                + "</div>";
     }
 
     private String buildLignesTable(Commande commande) {
         StringBuilder sb = new StringBuilder();
-        sb.append("""
-            <table style="width:100%;border-collapse:collapse;
-                          margin:1rem 0">
-              <tr style="background:#F1F5F9">
-                <th style="padding:8px;text-align:left">Produit</th>
-                <th style="padding:8px;text-align:center">Qté</th>
-                <th style="padding:8px;text-align:right">TTC</th>
-              </tr>
-            """);
+        sb.append("<table style=\"width:100%;border-collapse:collapse;margin:1rem 0\">")
+                .append("<tr style=\"background:#F1F5F9\">")
+                .append("<th style=\"padding:8px;text-align:left\">Produit</th>")
+                .append("<th style=\"padding:8px;text-align:center\">Qté</th>")
+                .append("<th style=\"padding:8px;text-align:right\">TTC</th>")
+                .append("</tr>");
+
         for (LigneCommande ligne : commande.getLignes()) {
-            sb.append("""
-                <tr>
-                  <td style="padding:8px;border-bottom:1px solid #E2E8F0">
-                    %s
-                  </td>
-                  <td style="text-align:center;border-bottom:
-                             1px solid #E2E8F0">%d</td>
-                  <td style="text-align:right;border-bottom:
-                             1px solid #E2E8F0">%s MAD</td>
-                </tr>
-                """.formatted(
-                    ligne.getOffre().getProduit().getDesignation(),
-                    ligne.getQuantite(),
-                    ligne.getMontantTtc()
-                ));
+            sb.append("<tr>")
+                    .append("<td style=\"padding:8px;border-bottom:1px solid #E2E8F0\">")
+                    .append(ligne.getOffre().getProduit().getDesignation())
+                    .append("</td>")
+                    .append("<td style=\"text-align:center;border-bottom:1px solid #E2E8F0\">")
+                    .append(ligne.getQuantite())
+                    .append("</td>")
+                    .append("<td style=\"text-align:right;border-bottom:1px solid #E2E8F0\">")
+                    .append(ligne.getMontantTtc())
+                    .append(" MAD</td>")
+                    .append("</tr>");
         }
+
         sb.append("</table>");
         return sb.toString();
     }
 
+
     private String buildTotaux(Commande commande) {
         BigDecimal sousTotal = commande.getLignes().stream()
-            .map(LigneCommande::getMontantTtc)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .map(LigneCommande::getMontantTtc)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return """
-            <table style="width:100%;margin-top:.5rem">
-              <tr>
-                <td>Sous-total</td>
-                <td style="text-align:right">%s MAD</td>
-              </tr>
-              <tr>
-                <td>Frais de livraison</td>
-                <td style="text-align:right">%s MAD</td>
-              </tr>
-              <tr style="font-weight:bold;font-size:1.1em">
-                <td>Total TTC</td>
-                <td style="text-align:right">%s MAD</td>
-              </tr>
-            </table>
-            """.formatted(
-                sousTotal,
-                commande.getFraisLivraison(),
-                sousTotal.add(commande.getFraisLivraison())
-            );
+        BigDecimal total = sousTotal.add(commande.getFraisLivraison());
+
+        return "<table style=\"width:100%;margin-top:.5rem\">"
+                + "<tr><td>Sous-total</td>"
+                + "<td style=\"text-align:right\">" + sousTotal + " MAD</td></tr>"
+                + "<tr><td>Frais de livraison</td>"
+                + "<td style=\"text-align:right\">"
+                + commande.getFraisLivraison() + " MAD</td></tr>"
+                + "<tr style=\"font-weight:bold;font-size:1.1em\">"
+                + "<td>Total TTC</td>"
+                + "<td style=\"text-align:right\">" + total + " MAD</td></tr>"
+                + "</table>";
     }
 
-    
+    @Async
+    public void envoyerSettingPassword(User user, String lien, String nomComplet) {
+        String corps = "<div style=\"font-family:sans-serif;"
+        + "max-width:600px;margin:0 auto\">"
+        + "<div style=\"background:#0F172A;padding:1rem 1.5rem;"
+        + "border-radius:8px 8px 0 0\">"
+        + "<h1 style=\"color:#60c3e2;margin:0\">DeliverMa</h1></div>"
+        + "<div style=\"border:1px solid #E2E8F0;border-top:none;"
+        + "padding:1.5rem;border-radius:0 0 8px 8px\">"
+        + "<h2>Bienvenue " + nomComplet + " !</h2>"
+        + "<p>Votre compte livreur a été créé sur la plateforme "
+        + "DeliverMa.</p>"
+        + "<p>Pour accéder à votre espace, veuillez définir votre "
+        + "mot de passe en cliquant sur le bouton ci-dessous :</p>"
+        + "<div style=\"text-align:center;margin:2rem 0\">"
+        + "<a href=\"" + lien + "\" style=\"background:#60c3e2;"
+        + "color:#0F172A;padding:.85rem 2rem;border-radius:8px;"
+        + "text-decoration:none;font-weight:700;font-size:1rem\">"
+        + "Définir mon mot de passe</a></div>"
+        + "<p style=\"color:#64748B;font-size:.82rem\">"
+        + "Ce lien est valable 24 heures. "
+        + "Si vous n'êtes pas concerné par cet email, "
+        + "ignorez-le.</p></div></div>";
+
+        envoyer(
+            user.getEmail(),
+      "🚚 DeliverMa — Définissez votre mot de passe",
+            corps
+        );
+    }
     
 }

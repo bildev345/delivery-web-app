@@ -11,6 +11,6 @@ public record ZoneResponse(
     String nom,
     String villesCouvertes,
     BigDecimal fraisLivraison,
-    int delaisJours,
+    int delaiJours,
     boolean active
 ) {}

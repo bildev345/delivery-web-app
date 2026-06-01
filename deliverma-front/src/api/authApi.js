@@ -5,5 +5,5 @@ export const authApi = {
     register: (data) => api.post('/auth/register', data),
     logout: () => api.post('/auth/logout'),
     me: () => api.get('/auth/me'),
-    switchRole : (role) => api.post('/auth/switch-role', {activeRole : role})
+    switchRole : (role) => api.post('/auth/switch-role', {activeRole : role}) 
 };

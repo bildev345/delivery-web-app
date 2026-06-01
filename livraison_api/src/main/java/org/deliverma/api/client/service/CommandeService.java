@@ -127,6 +127,10 @@ public class CommandeService {
         // ajouter premier suivi statut de commande
         ajouterSuivi(savedCommande, StatutCommande.EN_ATTENTE, "Commande créée");
 
+        savedCommande.setStatut(StatutCommande.CONFIRMEE);
+        ajouterSuivi(savedCommande, StatutCommande.CONFIRMEE,
+                "Commande confirmée automatiquement");
+        commandeRepository.save(savedCommande);
         // Email de confirmation hors transaction
         emailService.envoyerConfirmationCommande(savedCommande);
 
@@ -214,11 +218,12 @@ public class CommandeService {
                 "Cette commande ne vous appartient pas"
             );
         }
-        // le client ne peut annuler qu'en EN_ATTENTE
-        if(commande.getStatut() != StatutCommande.EN_ATTENTE){
+        // le client peut annuler seulement si CONFIRMEE
+        if(commande.getStatut() != StatutCommande.CONFIRMEE){
             throw new BusinessException(
-                "Vous ne pouvez pas annuler qu'une commande ne attente. "
-                + "Statut actuel : " + commande.getStatut()
+                "Annulation impossible - la commande est déjà " 
+                + "en cours de traitement (statut : "
+                + commande.getStatut() + ")"
             );
         }
         // réintégrer le stock de chaque ligne
@@ -232,6 +237,7 @@ public class CommandeService {
                                    .divide(BigDecimal.valueOf(0.5), RoundingMode.FLOOR)
                                    .intValue();
             client.setPointsFidelite(client.getPointsFidelite() + pointsARembourser);
+            clientRepository.save(client);
 
         }
         commande.setStatut(StatutCommande.ANNULEE);
@@ -284,6 +290,7 @@ public class CommandeService {
         return commandeRepository.findAllByLivreurId(livreur.getId())
                .stream().map(commandeMapper::toCommandeResponse).toList();
     }
-
-   
+    public Page<CommandeVendeurResponse> getAllCommandes(Pageable pageable, StatutCommande statut) {
+        return commandeRepository.findAllWithFilters(statut, pageable).map(commandeMapper::toCommandeVendeurResponse);
+    }
 }

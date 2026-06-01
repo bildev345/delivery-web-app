@@ -17,4 +17,6 @@ export const uniteApi = {
         if (notes) q.set('notes', notes);
         return api.patch(`/vendeur/unites/${id}/statut?${q.toString()}`);
     },
+    remettreEnVente: (id) =>
+        api.patch(`/vendeur/unites/${id}/remettre-en-vente`)
 };

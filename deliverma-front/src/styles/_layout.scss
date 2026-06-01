@@ -201,3 +201,19 @@ $header-h: 60px;
         padding: 1rem;
     }
 }
+
+.livreur-badge-alerte {
+    background: rgba($primary, .12);
+    color: $primary;
+    border: 1px solid rgba($primary, .25);
+    border-radius: 8px;
+    padding: .35rem .85rem;
+    font-size: .8rem;
+    font-weight: 700;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: .65; }
+}

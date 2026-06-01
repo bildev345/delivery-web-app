@@ -71,7 +71,7 @@ public class StatutService {
         // Email hors transaction
         emailService.envoyerMiseAJourStatut(commande, request.statut());
 
-        return commandeMapper.toCommandeResponse(commande);
+        return commandeMapper.toCommandeResponse(saved);
 
 
     }

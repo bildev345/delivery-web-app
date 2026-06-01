@@ -3,30 +3,34 @@ import { useAuth } from '../../hooks/useAuth';
 import { FaShoppingCart, FaStoreAlt, FaTools } from 'react-icons/fa';
 
 const ROLE_ROUTES = {
-    CLIENT:  '/catalogue',
+    CLIENT: '/client/dashboard',
     VENDEUR: '/vendeur/dashboard',
-    ADMIN:   '/admin/dashboard',
+    ADMIN: '/admin/dashboard',
 };
 
 const ROLE_LABELS = {
-    CLIENT:  { label: 'Espace Client',  icon: <FaShoppingCart/> },
+    CLIENT: { label: 'Espace Client',  icon: <FaShoppingCart/> },
     VENDEUR: { label: 'Espace Vendeur', icon: <FaStoreAlt/> },
-    ADMIN:   { label: 'Administration', icon: <FaTools/> },
+    ADMIN: { label: 'Administration', icon: <FaTools/> },
 };
 
 export default function RoleSwitcher() {
     const { user, switchRole, hasMultiple, activeRole } = useAuth();
     const navigate = useNavigate();
+    
 
     // Afficher uniquement si l'utilisateur a plusieurs rôles
     if (!hasMultiple) return null;
 
     const otherRoles = user.roles.filter(r => r !== activeRole);
 
-    const handleSwitch = async (role) => {
+    const handleSwitch = async (newRole) => {
         try {
-            await switchRole(role);
-            navigate(ROLE_ROUTES[role] || '/');
+            await switchRole(newRole);
+            const targetPath = ROLE_ROUTES[newRole];
+            if(targetPath){
+                navigate(targetPath, {replace : true});
+            }
         } catch (err) {
             console.error('Switch role failed', err);
         }

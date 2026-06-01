@@ -65,7 +65,7 @@ public class ZoneService {
         zone.setNom(zoneRequest.nom());
         zone.setVillesCouvertes(zoneRequest.villesCouvertes());
         zone.setFraisLivraison(zoneRequest.fraisLivraison());
-        zone.setDelaisJours(zoneRequest.delaisJours());
+        zone.setDelaiJours(zoneRequest.delaiJours());
         return zoneMapper.toResponse(zoneRepo.save(zone));
     }
 

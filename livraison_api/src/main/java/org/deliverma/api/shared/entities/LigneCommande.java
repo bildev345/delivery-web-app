@@ -49,7 +49,8 @@ public class LigneCommande {
     private Offre offre;
 
     // null pour produits fongibles
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unite_produit_id")
     private UniteProduit uniteProduit;
 
     @Transient

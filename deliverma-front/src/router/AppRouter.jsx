@@ -26,13 +26,16 @@ import { AdminCommandesPage } from '../pages/admin/commandes/AdminCommandesPage'
 import ClientLayout from '../layouts/client/ClientLayout';
 import AdressesPage from '../pages/client/adresses/AdressesPage';
 import { ClientCommandesPage } from '../pages/client/commandes/ClientCommandesPage';
-import PublicLayout from '../layouts/PublicLayout';
 import CataloguePage from '../pages/catalogue/CataloguePage';
 import ProduitDetailPage from '../pages/catalogue/ProduitDetailPage';
 import SuiviPage from '../pages/catalogue/SuiviPage';
 import CheckoutPage from '../pages/client/commandes/CheckoutPage';
 import PanierPage from '../pages/client/panier/PanierPage';
 import ClientCommandeDetail from '../pages/client/commandes/ClientCommandeDetail';
+import LivreurLayout from '../layouts/livreur/LivreurLayout';
+import ProfilLivreurPage from '../pages/livreur/ProfilLivreurPage';
+import PublicLayout from '../layouts/public/PublicLayout';
+import DefinirMotDePassePage from '../pages/auth/DefinirPasswordPage';
 
 function RootRedirect() {
     const { user, loading } = useAuth();
@@ -55,6 +58,8 @@ export default function AppRouter() {
           {/* Racine → redirige selon rôle */}
           {/*<Route path="/" element={<RootRedirect />} />*/}
 
+          <Route path='/set-password' element={<DefinirMotDePassePage/>}/>
+          
           {/* Auth — publiques */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -99,12 +104,14 @@ export default function AppRouter() {
             path="/livreur"
             element={
               <ProtectedRoute roles={["LIVREUR"]}>
-                <Routes>
-                  <Route path="tournee" element={<LivreurDashboard />} />
-                </Routes>
+                <LivreurLayout/>
               </ProtectedRoute>
             }
-          />
+          >
+              <Route index element={<Navigate to="tournee" replace/>}/>
+              <Route path='tournee' element={<LivreurDashboard/>}/>
+              <Route path='profil' element={<ProfilLivreurPage/>}/>
+          </Route>
 
           {/* Admin */}
           <Route path="/admin"

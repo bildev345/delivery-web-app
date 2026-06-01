@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -61,9 +62,9 @@ public class UniteProduit {
     @JoinColumn(name = "offre_id", nullable = false)
     private Offre offre;
 
-    // rempli quand l'unité est vendue
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ligne_commande_id")
-    private LigneCommande LigneCommande;
+    // // rempli quand l'unité est vendue
+    // @OneToMany(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "ligne_commande_id")
+    // private LigneCommande LigneCommande;
 
 }

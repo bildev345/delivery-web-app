@@ -125,6 +125,24 @@ public class UniteService {
         }
     }
 
+    // remettre en vente manuellement
+    @Transactional
+    public UniteProduitResponse remettreEnVente(UUID uniteId){
+        UniteProduit unite = uniteRepository.findById(uniteId)
+        .orElseThrow(() -> new ResourceNotFoundException("Unité", uniteId));
+        
+        if(unite.getStatut() != UniteStatut.RETOURNEE && unite.getStatut() != UniteStatut.EN_SAV){
+            throw new BusinessException(
+                "Seules les unités RETOURNÉE ou EN_SAV peuvent " + "etre remises en vente"
+            );
+        }
+        unite.setStatut(UniteStatut.DISPONIBLE);
+        unite.setNotes(unite.getNotes() + " | Remis en vente le " + LocalDate.now());
+        
+        synchroniserStock(unite.getOffre());
+        return toResponse(unite);
+    }
+
     private UniteProduitResponse toResponse(UniteProduit u) {
         return new UniteProduitResponse(
             u.getId(),

@@ -33,7 +33,7 @@ public record ZoneRequest(
     @Positive(message = "{VALIDATION.ZONE.FRAIS_LIVRAISON.POSITIVE}")
     BigDecimal fraisLivraison,
     
-    @NotNull(message = "{VALIDATION.ZONE.DELAIS_JOURS.NULL}")
-    @Positive(message = "{VALIDATION.ZONE.DELAIS_JOURS.POSITIVE}")
-    int delaisJours
+    @NotNull(message = "{VALIDATION.ZONE.DELAI_JOURS.NULL}")
+    @Positive(message = "{VALIDATION.ZONE.DELAI_JOURS.POSITIVE}")
+    int delaiJours
 ){}

@@ -128,7 +128,7 @@ public class AuthService {
 
         // 5. Return the record using the Builder
         return AuthResponse.builder()
-                .userId(user.getId().toString())
+                .userId(user.getId())
                 .nom(user.getNom())
                 .prenom(user.getPrenom())
                 .email(user.getEmail())
@@ -168,7 +168,7 @@ public class AuthService {
                             .orElse(user.getRoles().iterator().next().name());
 
         return AuthResponse.builder()
-               .userId(user.getId().toString())
+               .userId(user.getId())
                .nom(user.getNom())
                .prenom(user.getPrenom())
                .email(user.getEmail())
@@ -202,7 +202,7 @@ public class AuthService {
         response.addCookie(cookie);
 
         return AuthResponse.builder()
-            .userId(user.getId().toString())
+            .userId(user.getId())
             .nom(user.getNom())
             .prenom(user.getPrenom())
             .email(user.getEmail())
