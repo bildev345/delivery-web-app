@@ -41,6 +41,7 @@ public class StatutService {
     private final FideliteService fideliteService;
     private final StockService stockService;
     private final CommandeMapper commandeMapper;
+    private final PDFService pdfService;
     
 
     @Transactional
@@ -106,6 +107,10 @@ public class StatutService {
                 
                 // créditer les points de fidélité
                 fideliteService.crediterPoints(commande.getClient(), commande);
+
+                // générer et envoyer le bon
+                pdfService.genererEtEnvoyerBon(commande);
+
             }
 
             case ANNULEE -> {

@@ -1,5 +1,6 @@
 package org.deliverma.api.livreur.dto;
 
+import java.util.List;
 import java.util.UUID;
 
 import lombok.Builder;
@@ -14,5 +15,5 @@ public record LivreurProfilResponse(
     String vehicle,
     String numeroPermis,
     boolean disponible,
-    String zonePrincipale
+    List<LivreurZoneResponse> zones
 ) {}

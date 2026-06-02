@@ -16,10 +16,10 @@ export default function ProfilLivreurPage() {
 
     const { data: zones = [] } = useZones();
 
-    const [editing, setEditing]     = useState(false);
-    const [success, setSuccess]     = useState(false);
-    const [form, setForm]           = useState(null);
-    const [errors, setErrors]       = useState({});
+    const [editing, setEditing] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [form, setForm] = useState(null);
+    const [errors, setErrors] = useState({});
 
     const updateMutation = useMutation({
         mutationFn: (data) => api.put('/livreur/profil', data),
@@ -34,8 +34,8 @@ export default function ProfilLivreurPage() {
     const startEdit = () => {
         setForm({
             telephone: profil.telephone || '',
-            vehicle:   profil.vehicle   || 'Moto',
-            zones:     profil.zones     || [],
+            vehicle: profil.vehicle || 'Moto',
+            zones: profil.zones || [],
         });
         setEditing(true);
         setErrors({});

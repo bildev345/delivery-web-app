@@ -11,6 +11,7 @@ import org.deliverma.api.shared.entities.Livreur;
 import org.deliverma.api.shared.entities.User;
 import org.deliverma.api.shared.enums.StatutCommande;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -256,6 +257,44 @@ public class EmailService {
       "🚚 DeliverMa — Définissez votre mot de passe",
             corps
         );
+    }
+
+    @Async
+    public void envoyerBonLivraison(Commande commande, byte[] pdfBytes) {
+        try {
+            String to = commande.getClient().getUser().getEmail();
+            MimeMessage message = mailSender.createMimeMessage();
+
+            // true = multipart (pour les pièces jointes)
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+            helper.setFrom(from);
+            helper.setTo(to);
+            helper.setSubject("🎉 Livraison confirmée — "
+                    + commande.getNumero());
+            helper.setText(
+                    "<div style=\"font-family:sans-serif\">"
+                            + "<h2>Votre commande a été livrée !</h2>"
+                            + "<p>N° <strong>" + commande.getNumero()
+                            + "</strong></p>"
+                            + "<p>Veuillez trouver ci-joint votre bon de livraison.</p>"
+                            + "<p>Merci pour votre confiance.</p>"
+                            + "</div>",
+                    true);
+
+            // ✅ Pièce jointe PDF
+            helper.addAttachment(
+                    "bon-livraison-" + commande.getNumero() + ".pdf",
+                    new ByteArrayResource(pdfBytes),
+                    "application/pdf");
+
+            mailSender.send(message);
+            log.info("Bon de livraison envoyé à {}", to);
+
+        } catch (Exception e) {
+            log.error("Erreur envoi bon livraison {} : {}",
+                    commande.getNumero(), e.getMessage());
+        }
     }
     
 }
