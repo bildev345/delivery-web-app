@@ -2,6 +2,7 @@ package org.deliverma.api.vendeur.controller;
 
 import org.deliverma.api.admin.dto.vendeur.VendeurResponse;
 import org.deliverma.api.admin.dto.vendeur.VendeurUpdateRequest;
+import org.deliverma.api.vendeur.dto.dashboard.VendeurDashboardResponse;
 import org.deliverma.api.vendeur.service.VendeurService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,28 +14,36 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
 @RequiredArgsConstructor
 @RestController
 @PreAuthorize("hasRole('VENDEUR')")
-@RequestMapping("/api/v1/vendeur/profile")
+@RequestMapping("/api/v1/vendeur")
 @Tag(name = "Espace Vendeur")
 public class VendeurController {
     private final VendeurService vendeurService;
 
-    @GetMapping
+    @GetMapping("profile")
     public ResponseEntity<VendeurResponse> viewDetails() {
         return ResponseEntity.ok(
             vendeurService.toResponse(vendeurService.getVendeurByEmail())
         );
     }
 
-    @PutMapping
+    @PutMapping("profile")
     public ResponseEntity<VendeurResponse> updateBoutique(@RequestBody VendeurUpdateRequest request) {
         
         return ResponseEntity.ok(vendeurService.updateBoutique(request));
     }
+
+    @GetMapping("dashboard")
+    public ResponseEntity<VendeurDashboardResponse> getDashboard() {
+        return ResponseEntity.ok(vendeurService.getDashboard());
+    }
+    
     
 }

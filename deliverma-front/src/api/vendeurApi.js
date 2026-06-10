@@ -9,3 +9,7 @@ export const vendeurApi =  {
     getProfil: () => api.get('/vendeur/profile'),
     updateProfil: (data) => api.put('/vendeur/profile', data)
 };
+
+export const vendeurDashboardApi = {
+    getStats : () => api.get('/vendeur/dashboard')
+};

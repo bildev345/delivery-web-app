@@ -126,7 +126,7 @@ export default function CheckoutPage() {
                                 Frais :{' '}
                                 {adresseSelectionnee.zone?.fraisLivraison} MAD ·
                                 Délai :{' '}
-                                {adresseSelectionnee.zone?.delaisJours}j
+                                {adresseSelectionnee.zone?.delaiJours} j
                             </div>
                         )}
 

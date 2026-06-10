@@ -52,8 +52,6 @@ export const OffresPages = () => {
                         <tr>
                             <th>Produit</th>
                             <th>Prix HT</th>
-                            <th>TVA</th>
-                            <th>Prix TTC</th>
                             <th>Stock</th>
                             <th>Type</th>
                             <th>Statut</th>
@@ -79,10 +77,6 @@ export const OffresPages = () => {
                                         </div>
                                     </td>
                                     <td>{o.prixHt} MAD</td>
-                                    <td>{o.tva}%</td>
-                                    <td className="td-bold">
-                                        {o.prixTttc} MAD
-                                    </td>
                                     <td>
                                         <span className={
                                             o.stock === 0

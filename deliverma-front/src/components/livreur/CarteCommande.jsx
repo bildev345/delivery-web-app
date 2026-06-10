@@ -27,9 +27,9 @@ export default function CarteCommande({ commande, transitions, onAction }) {
                             ? 'btn-danger' : 'btn-orange'}`}
                         onClick={() => onAction(s)}
                     >
-                        {s === 'LIVREE'   && '✅ Livré'}
+                        {s === 'LIVREE' && '✅ Livré'}
                         {s === 'EN_TRANSIT' && '🚴 Pris en charge'}
-                        {s === 'ECHEC'    && '⚠️ Échec'}
+                        {s === 'ECHEC' && '⚠️ Échec'}
                     </button>
                 ))}
             </div>

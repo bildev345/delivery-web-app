@@ -1,10 +1,9 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { FaSignOutAlt, FaClipboardList, FaTachometerAlt } from 'react-icons/fa';
+import { FaSignOutAlt, FaClipboardList, FaStore } from 'react-icons/fa';
 import { FaArrowLeftLong, FaArrowRightLong, FaLocationDot } from 'react-icons/fa6';
 import { useAuth } from '../../hooks/useAuth';
 
 const NAV_LINKS = [
-    { to: '/client/dashboard', icon: <FaTachometerAlt/> , label: 'Dashboard' },
     { to: '/client/adresses', icon: <FaLocationDot/>, label: 'Adresses' },
     { to: '/client/commandes', icon: <FaClipboardList/>, label: 'Commandes' },
 ];

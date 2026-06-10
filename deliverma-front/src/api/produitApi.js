@@ -25,6 +25,6 @@ export const produitApi = {
     delete : (id) => api.delete(`/admin/produits/${id}`),
 
     
-    getAllPublic : () => api.get(`/catalogue/all`)
+    getAllPublic : () => api.get(`/produits/all`)
 
 }

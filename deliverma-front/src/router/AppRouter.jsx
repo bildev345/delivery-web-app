@@ -73,7 +73,6 @@ export default function AppRouter() {
               </ProtectedRoute>
             }
           >
-              <Route path='dashboard' element={<ClientDashboard/>} />
               <Route path='adresses' element={<AdressesPage/>} />
               <Route path='commandes' element={<ClientCommandesPage/>} />
               <Route path='commandes/:id' element={<ClientCommandeDetail/>} />

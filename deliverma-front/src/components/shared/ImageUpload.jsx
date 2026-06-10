@@ -80,6 +80,7 @@ export const ImageUpload = ({ label = 'photo', value, onChange, folder = 'genera
                 }`}>
                     <input 
                         type="file" 
+                        alt="Aperçu"
                         accept="image/*"
                         onChange = {handleFileChange}
                         disabled = {uploading}

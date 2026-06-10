@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCommandes, useAnnulerCommande }
     from '../../../hooks/useCommandes';
+import { FaStore } from 'react-icons/fa';
 
 const STATUT_CONFIG = {
     EN_ATTENTE: { label: 'En attente', cls: 'badge-pending' },
@@ -49,7 +50,7 @@ export const ClientCommandesPage = () => {
                         <p>Vous n'avez pas encore de commandes</p>
                     )}
                     <Link to="/catalogue" className="btn btn-orange">
-                        Parcourir le catalogue
+                        <FaStore/> Parcourir le catalogue
                     </Link>
                 </div>
             

@@ -23,7 +23,7 @@ $header-h: 60px;
 }
 
 .sidebar {
-    background: $dark;
+    background: $sidebar-bg;
     display: flex;
     flex-direction: column;
     position: sticky;
@@ -38,7 +38,7 @@ $header-h: 60px;
     align-items: center;
     justify-content: space-between;
     padding: 1rem .75rem;
-    border-bottom: 1px solid #1E293B;
+    border-bottom: 1px solid #112035;
     min-height: $header-h;
     flex-shrink: 0;
 }
@@ -52,7 +52,7 @@ $header-h: 60px;
 }
 
 .sidebar-toggle {
-    background: #1E293B;
+    background: #112035;    
     border: none;
     color: #64748B;
     width: 28px;
@@ -101,7 +101,7 @@ $header-h: 60px;
     overflow: hidden;
     transition: background .15s, color .15s;
 
-    &:hover { background: #1E293B; color: white; }
+    &:hover { background: #112035; color: white; }
     &--active {
         background: rgba($primary, .12);
         color: $primary;
@@ -120,7 +120,7 @@ $header-h: 60px;
     margin: .5rem;
     border-radius: 8px;
     background: none;
-    border: 1px solid #1E293B;
+    border: 1px solid #112035;
     color: #64748B;
     font-size: .82rem;
     cursor: pointer;
@@ -128,7 +128,7 @@ $header-h: 60px;
     overflow: hidden;
     transition: all .15s;
     flex-shrink: 0;
-    &:hover { background: #1E293B; color: $red; }
+    &:hover { background: #112035; color: $red; }
 }
 
 .header {

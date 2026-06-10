@@ -21,14 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/catalogue/produits")
+@RequestMapping("/api/v1")
 @Tag(name = "Espace public")
 public class CatalogueController {
     private final ProduitService produitService;
     private final OffreService offreService;
     
     // récupérer le catalogue des produits qui ont des offres actives
-    @GetMapping
+    @GetMapping("catalogue/produits")
     public ResponseEntity<List<ProduitResponse>> getCatalogue(
         @RequestParam(required = false) String search,
         @RequestParam(required = false) UUID categorieId
@@ -38,12 +38,12 @@ public class CatalogueController {
         );
     }
 
-    @GetMapping("{id}")
+    @GetMapping("catalogue/produits/{id}")
     public ResponseEntity<ProduitResponse> getProduit(@PathVariable UUID id) {
         return ResponseEntity.ok(produitService.getProductById(id));
     }
 
-    @GetMapping("{id}/offres")
+    @GetMapping("catalogue/produits/{id}/offres")
     public ResponseEntity<List<OffrePublicResponse>> getOffresParProduit(@PathVariable UUID id) {
         return ResponseEntity.ok(
             offreService.getOffresPublicByProduit(id)
@@ -52,7 +52,7 @@ public class CatalogueController {
     
 
     //récuperer tous les produits pour que les vendeurs crées ses offres 
-    @GetMapping("all")
+    @GetMapping("produits/all")
     public ResponseEntity<List<ProduitResponse>> getAllProducts() {
         return ResponseEntity.ok(produitService.getllProducts());
     }   

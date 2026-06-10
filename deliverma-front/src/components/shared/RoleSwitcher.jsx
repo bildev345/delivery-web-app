@@ -3,7 +3,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { FaShoppingCart, FaStoreAlt, FaTools } from 'react-icons/fa';
 
 const ROLE_ROUTES = {
-    CLIENT: '/client/dashboard',
+    CLIENT: '/client/commandes',
     VENDEUR: '/vendeur/dashboard',
     ADMIN: '/admin/dashboard',
 };

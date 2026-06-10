@@ -44,4 +44,15 @@ public interface CommandeRepository extends JpaRepository<Commande, UUID>{
         ORDER BY c.dateCreation DESC      
     """)
     Page<Commande> findAllWithFilters(StatutCommande statut, Pageable pageable);
+
+    @Query("""
+            select c from Commande c
+            where exists (
+                select lc from LigneCommande lc 
+                where lc.commande = c and 
+                lc.offre.vendeur.id = :vendeurId
+            )
+
+    """)
+    List<Commande> findAllByVendeurId(UUID vendeurId);
 }

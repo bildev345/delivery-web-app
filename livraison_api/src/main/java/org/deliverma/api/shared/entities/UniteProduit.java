@@ -32,9 +32,7 @@ import lombok.NoArgsConstructor;
     name = "uniteProduits",
     indexes = {
         @Index(name = "idx_unite_offre", columnList = "offre_id"),
-        @Index(name = "idx_unite_statut", columnList = "statut"),
-        @Index(name = "idx_unite_commande", columnList = "ligne_commande_id")
-
+        @Index(name = "idx_unite_statut", columnList = "statut")
     }
 )
 public class UniteProduit {

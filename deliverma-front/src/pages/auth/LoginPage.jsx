@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { FaArrowLeft, FaBicycle, FaShoppingCart, FaStore, FaTools } from 'react-icons/fa';
 
 const routes = {
-    CLIENT:  '/client/dashboard',
+    CLIENT:  '/catalogue',
     VENDEUR: '/vendeur/dashboard',
     LIVREUR: '/livreur/tournee',
     ADMIN:   '/admin/dashboard',
@@ -89,12 +89,12 @@ export const LoginPage = () =>  {
                 {/* ── Étape 1 — Identifiants ── */}
                 {step === 'credentials' && (
                     <>
-                        <h1>Connexion</h1>
+                        <h1 style={{textAlign : 'center'}}>Connexion</h1>
 
                         {error && (
                             <div className="alert alert-error">{error}</div>
                         )}
-
+ 
                         <form onSubmit={handleCredentials} noValidate>
                             <div className="form-group">
                                 <label htmlFor="email">Email</label>

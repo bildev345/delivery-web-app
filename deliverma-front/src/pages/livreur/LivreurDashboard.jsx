@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
     useTournee, useChangerStatutLivreur
 } from '../../hooks/useStatut';
-import CarteCommande from '../../components/livreur/CarteOffre';
+import CarteCommande from '../../components/livreur/CarteCommande';
 
 const TRANSITIONS_LIVREUR = {
     EXPEDIEE:  ['EN_TRANSIT'],
@@ -24,9 +24,9 @@ export const LivreurDashboard = () => {
         setError('');
         try {
             await changerMutation.mutateAsync({
-                id:   modalStatut.commandeId,
+                id: modalStatut.commandeId,
                 data: {
-                    statut:      modalStatut.nouveauStatut,
+                    statut: modalStatut.nouveauStatut,
                     commentaire: commentaire || null,
                 },
             });
@@ -59,7 +59,7 @@ export const LivreurDashboard = () => {
                                 commande={c}
                                 transitions={['EN_TRANSIT']}
                                 onAction={(statut) => setModalStatut({
-                                    commandeId: c.id,
+                                    commandeId: c.commandeId,
                                     commandeNumero: c.numero,
                                     nouveauStatut: statut,
                                 })}
@@ -83,7 +83,7 @@ export const LivreurDashboard = () => {
                                 commande={c}
                                 transitions={['LIVREE', 'ECHEC']}
                                 onAction={(statut) => setModalStatut({
-                                    commandeId: c.id,
+                                    commandeId: c.commandeId,
                                     commandeNumero: c.numero,
                                     nouveauStatut: statut,
                                 })}
